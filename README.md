@@ -123,6 +123,10 @@ MVPでは、10問の出題から結果・解説の確認、再挑戦までの体
 - ユーザー登録・ログイン
 - オンラインランキング
 
-## 画面遷移図:Figma URL
+## 画面遷移図
 
 https://www.figma.com/design/86dEY795bQC7AJ52k4OuDa/%E9%BA%BB%E9%9B%80%E3%83%AC%E3%83%99%E3%83%AB--_%E7%94%BB%E9%9D%A2%E9%81%B7%E7%A7%BB%E5%9B%B3?node-id=9-86&p=f&t=B2ZANpjDxeDIBnml-0
+
+## ER図
+
+https://drive.google.com/drive/u/0/home
