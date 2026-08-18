@@ -130,3 +130,16 @@ https://www.figma.com/design/86dEY795bQC7AJ52k4OuDa/%E9%BA%BB%E9%9B%80%E3%83%AC%
 ## ER図
 
 https://app.diagrams.net/#G1l8L-phBt3neEeyPqQqkUjbIwZn7PAwFq#%7B%22pageId%22%3A%228bcgIEU77MefJeVwUgoD%22%7D
+
+## 公開URL
+
+https://mahjong-level-plus.vercel.app/
+
+## 使用素材
+
+### 麻雀牌画像
+
+- 素材：[riichi-mahjong-tiles](https://github.com/FluffyStuff/riichi-mahjong-tiles)
+- 作者：[FluffyStuff](https://github.com/FluffyStuff)
+- ライセンス：[CC0 1.0（パブリックドメイン）](https://github.com/FluffyStuff/riichi-mahjong-tiles/blob/master/LICENSE.md)
+- 使用バリエーション：Regular
