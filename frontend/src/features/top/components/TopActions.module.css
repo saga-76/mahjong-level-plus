@@ -1,0 +1,112 @@
+.ornateButton {
+  position: relative;
+  isolation: isolate;
+  border: 0;
+  background: linear-gradient(
+    180deg,
+    #f3d9a1 0%,
+    #a47538 38%,
+    #70491f 62%,
+    #d8b16d 100%
+  );
+  clip-path: polygon(
+    14px 0,
+    calc(100% - 14px) 0,
+    100% 14px,
+    100% calc(100% - 14px),
+    calc(100% - 14px) 100%,
+    14px 100%,
+    0 calc(100% - 14px),
+    0 14px
+  );
+  filter: drop-shadow(0 8px 8px rgb(0 0 0 / 55%));
+  transition:
+    filter 180ms ease,
+    transform 180ms ease;
+}
+
+.ornateButton::before {
+  position: absolute;
+  z-index: -1;
+  inset: 4px;
+  content: '';
+  clip-path: polygon(
+    11px 0,
+    calc(100% - 11px) 0,
+    100% 11px,
+    100% calc(100% - 11px),
+    calc(100% - 11px) 100%,
+    11px 100%,
+    0 calc(100% - 11px),
+    0 11px
+  );
+}
+
+.primaryButton::before {
+  background:
+    linear-gradient(rgb(11 48 34 / 92%), rgb(8 38 27 / 96%)),
+    repeating-linear-gradient(
+      135deg,
+      rgb(255 255 255 / 2%) 0,
+      rgb(255 255 255 / 2%) 2px,
+      transparent 2px,
+      transparent 6px
+    );
+}
+
+.secondaryButton::before {
+  background:
+    linear-gradient(rgb(239 228 203 / 96%), rgb(229 213 180 / 98%)),
+    repeating-linear-gradient(
+      135deg,
+      rgb(255 255 255 / 12%) 0,
+      rgb(255 255 255 / 12%) 2px,
+      transparent 2px,
+      transparent 6px
+    );
+}
+
+.ornateButton::after {
+  position: absolute;
+  z-index: 0;
+  inset: 10px;
+  pointer-events: none;
+  content: '';
+  border: 1px solid rgb(224 184 111 / 60%);
+  clip-path: polygon(
+    7px 0,
+    calc(100% - 7px) 0,
+    100% 7px,
+    100% calc(100% - 7px),
+    calc(100% - 7px) 100%,
+    7px 100%,
+    0 calc(100% - 7px),
+    0 7px
+  );
+}
+
+.ornateButton:hover {
+  filter: brightness(1.12) drop-shadow(0 9px 9px rgb(0 0 0 / 60%));
+  transform: translateY(-1px);
+}
+
+.ornateButton:focus-visible {
+  outline: none;
+  filter: drop-shadow(0 0 5px #f6dda9) drop-shadow(0 8px 8px rgb(0 0 0 / 55%));
+}
+
+.label {
+  position: relative;
+  z-index: 2;
+  text-shadow: 0 2px 2px rgb(0 0 0 / 75%);
+}
+
+.secondaryLabel {
+  text-shadow: 0 1px 0 rgb(255 255 255 / 55%);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ornateButton {
+    transition: none;
+  }
+}
