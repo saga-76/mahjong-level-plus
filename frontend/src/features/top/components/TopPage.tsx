@@ -1,9 +1,20 @@
 import topBackground from '../assets/top-background.webp'
+import { HowToDialog } from './HowToDialog'
 import { MahjongTileDecoration } from './MahjongTileDecoration'
 import { TopActions } from './TopActions'
 import { TopFooter } from './TopFooter'
 
-export function TopPage() {
+type TopPageProps = {
+  isHowToOpen: boolean
+  onOpenHowTo: () => void
+  onCloseHowTo: () => void
+}
+
+export function TopPage({
+  isHowToOpen,
+  onOpenHowTo,
+  onCloseHowTo,
+}: TopPageProps) {
   return (
     <div
       className="relative min-h-svh overflow-hidden bg-cover bg-center font-['Yu_Mincho','Hiragino_Mincho_ProN',serif]"
@@ -32,7 +43,7 @@ export function TopPage() {
             </div>
 
             <div className="w-full max-w-2xl">
-              <TopActions />
+              <TopActions onOpenHowTo={onOpenHowTo} />
             </div>
           </section>
         </main>
@@ -41,6 +52,8 @@ export function TopPage() {
       </div>
 
       <MahjongTileDecoration />
+
+      <HowToDialog isOpen={isHowToOpen} onClose={onCloseHowTo} />
     </div>
   )
 }
