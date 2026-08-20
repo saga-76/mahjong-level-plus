@@ -3,17 +3,23 @@ import { HowToDialog } from './HowToDialog'
 import { MahjongTileDecoration } from './MahjongTileDecoration'
 import { TopActions } from './TopActions'
 import { TopFooter } from './TopFooter'
+import { ScoreRankDialog } from './ScoreRankDialog'
 
 type TopPageProps = {
   isHowToOpen: boolean
+  isScoreRankOpen: boolean
   onOpenHowTo: () => void
   onCloseHowTo: () => void
+  onOpenScoreRank: () => void
+  onCloseScoreRank: () => void
 }
-
 export function TopPage({
   isHowToOpen,
+  isScoreRankOpen,
   onOpenHowTo,
   onCloseHowTo,
+  onOpenScoreRank,
+  onCloseScoreRank,
 }: TopPageProps) {
   return (
     <div
@@ -21,7 +27,6 @@ export function TopPage({
       style={{ backgroundImage: `url(${topBackground})` }}
     >
       <div aria-hidden="true" className="absolute inset-0 bg-black/20" />
-
       <div className="relative z-20 flex min-h-svh flex-col">
         <main className="flex flex-1 items-center justify-center px-4 py-12 sm:px-6">
           <section className="flex w-full max-w-4xl -translate-y-6 flex-col items-center text-center">
@@ -43,7 +48,10 @@ export function TopPage({
             </div>
 
             <div className="w-full max-w-2xl">
-              <TopActions onOpenHowTo={onOpenHowTo} />
+              <TopActions
+                onOpenHowTo={onOpenHowTo}
+                onOpenScoreRank={onOpenScoreRank}
+              />
             </div>
           </section>
         </main>
@@ -54,6 +62,8 @@ export function TopPage({
       <MahjongTileDecoration />
 
       <HowToDialog isOpen={isHowToOpen} onClose={onCloseHowTo} />
+
+      <ScoreRankDialog isOpen={isScoreRankOpen} onClose={onCloseScoreRank} />
     </div>
   )
 }
