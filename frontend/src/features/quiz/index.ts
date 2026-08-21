@@ -1,4 +1,5 @@
 export { questions } from './data/question'
+export { AnswerChoices } from './components/AnswerChoices'
 export { MahjongTile } from './components/MahjongTile'
 export { WinningHand } from './components/WinningHand'
 export { QUESTIONS_PER_PATTERN, selectQuestions } from './logic/selectQuestions'
