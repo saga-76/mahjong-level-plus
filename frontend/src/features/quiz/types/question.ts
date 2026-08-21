@@ -8,6 +8,26 @@ type HonorTile = `${HonorNumber}z`
 
 export type TileCode = StandardSuitTile | RedFiveTile | HonorTile
 
+export type MeldType = 'chi' | 'pon' | 'kan'
+
+type ThreeTileMeld = readonly [TileCode, TileCode, TileCode]
+type FourTileMeld = readonly [TileCode, TileCode, TileCode, TileCode]
+
+export type Meld =
+  | {
+      readonly type: 'chi' | 'pon'
+      readonly tiles: ThreeTileMeld
+    }
+  | {
+      readonly type: 'kan'
+      readonly tiles: FourTileMeld
+    }
+
+export type QuestionHand = {
+  readonly concealedTiles: readonly TileCode[]
+  readonly winningTile: TileCode
+  readonly melds: readonly Meld[]
+}
 export type QuestionPattern = 'A' | 'B'
 
 export type PlayerType = 'dealer' | 'nonDealer'
@@ -20,7 +40,7 @@ export type QuestionCondition = {
 
 type BaseQuestion = {
   readonly id: string
-  readonly tiles: readonly TileCode[]
+  readonly hand: QuestionHand
   readonly condition: QuestionCondition
   readonly choices: readonly [string, string, string]
   readonly correctAnswer: string
