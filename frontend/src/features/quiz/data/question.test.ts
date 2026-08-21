@@ -35,6 +35,23 @@ describe('questions', () => {
     expect(patternBQuestion?.fu).toBeTypeOf('number')
   })
 
+  it('手牌・アガリ牌・副露を区別して管理できる', () => {
+    for (const question of questions) {
+      const meldTileCount = question.hand.melds.reduce(
+        (total, meld) => total + meld.tiles.length,
+        0,
+      )
+      const handTileCount =
+        question.hand.concealedTiles.length + 1 + meldTileCount
+
+      expect(handTileCount).toBe(14)
+    }
+
+    expect(questions.some((question) => question.hand.melds.length > 0)).toBe(
+      true,
+    )
+  })
+
   it('本番データから10問を重複なく選出できる', () => {
     const selectedQuestions = selectQuestions(questions, () => 0.5)
     const selectedQuestionIds = selectedQuestions.map((question) => question.id)
