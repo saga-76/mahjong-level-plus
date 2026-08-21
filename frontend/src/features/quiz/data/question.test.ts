@@ -1,10 +1,19 @@
 import { describe, expect, it } from 'vitest'
 
-import { questions } from '..'
+import { questions, selectQuestions } from '..'
 
 describe('questions', () => {
   it('問題データを読み込める', () => {
-    expect(questions).toHaveLength(2)
+    expect(questions).toHaveLength(10)
+  })
+
+  it('パターンA・Bが5問ずつ登録されている', () => {
+    expect(
+      questions.filter((question) => question.pattern === 'A'),
+    ).toHaveLength(5)
+    expect(
+      questions.filter((question) => question.pattern === 'B'),
+    ).toHaveLength(5)
   })
 
   it('正解が3つの選択肢に含まれている', () => {
@@ -24,5 +33,13 @@ describe('questions', () => {
 
     expect(patternAQuestion?.fu).toBeNull()
     expect(patternBQuestion?.fu).toBeTypeOf('number')
+  })
+
+  it('本番データから10問を重複なく選出できる', () => {
+    const selectedQuestions = selectQuestions(questions, () => 0.5)
+    const selectedQuestionIds = selectedQuestions.map((question) => question.id)
+
+    expect(selectedQuestions).toHaveLength(10)
+    expect(new Set(selectedQuestionIds).size).toBe(10)
   })
 })
