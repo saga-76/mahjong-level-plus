@@ -1,6 +1,11 @@
 import styles from './TopActions.module.css'
 
-export function TopActions() {
+type TopActionsProps = {
+  onOpenHowTo: () => void
+  onOpenScoreRank: () => void
+}
+
+export function TopActions({ onOpenHowTo, onOpenScoreRank }: TopActionsProps) {
   return (
     <nav
       aria-label="トップ画面メニュー"
@@ -16,15 +21,16 @@ export function TopActions() {
       <button
         type="button"
         className={`${styles.ornateButton} ${styles.secondaryButton} min-h-20 w-5/6 cursor-pointer px-6 py-3 text-4xl font-semibold tracking-[0.22em] text-[#063b2b] sm:min-h-24 sm:text-5xl`}
+        onClick={onOpenHowTo}
       >
         <span className={`${styles.label} ${styles.secondaryLabel}`}>
           遊び方
         </span>
       </button>
-
       <button
         type="button"
         className={`${styles.ornateButton} ${styles.secondaryButton} min-h-20 w-5/6 cursor-pointer px-6 py-3 text-4xl font-semibold tracking-[0.18em] text-[#063b2b] sm:min-h-24 sm:text-5xl`}
+        onClick={onOpenScoreRank}
       >
         <span className={`${styles.label} ${styles.secondaryLabel}`}>
           得点・ランク
