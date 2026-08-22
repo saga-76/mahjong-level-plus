@@ -8,6 +8,7 @@ import { ScoreRankDialog } from './ScoreRankDialog'
 type TopPageProps = {
   isHowToOpen: boolean
   isScoreRankOpen: boolean
+  onStart: () => void
   onOpenHowTo: () => void
   onCloseHowTo: () => void
   onOpenScoreRank: () => void
@@ -16,6 +17,7 @@ type TopPageProps = {
 export function TopPage({
   isHowToOpen,
   isScoreRankOpen,
+  onStart,
   onOpenHowTo,
   onCloseHowTo,
   onOpenScoreRank,
@@ -49,6 +51,7 @@ export function TopPage({
 
             <div className="w-full max-w-2xl">
               <TopActions
+                onStart={onStart}
                 onOpenHowTo={onOpenHowTo}
                 onOpenScoreRank={onOpenScoreRank}
               />

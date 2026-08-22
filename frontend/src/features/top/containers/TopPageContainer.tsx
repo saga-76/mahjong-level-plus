@@ -1,7 +1,11 @@
 import { useState } from 'react'
 import { TopPage } from '../components/TopPage'
 
-export function TopPageContainer() {
+type TopPageContainerProps = {
+  readonly onStart: () => void
+}
+
+export function TopPageContainer({ onStart }: TopPageContainerProps) {
   const [isHowToOpen, setIsHowToOpen] = useState(false)
   const [isScoreRankOpen, setIsScoreRankOpen] = useState(false)
 
@@ -25,6 +29,7 @@ export function TopPageContainer() {
     <TopPage
       isHowToOpen={isHowToOpen}
       isScoreRankOpen={isScoreRankOpen}
+      onStart={onStart}
       onCloseHowTo={handleCloseHowTo}
       onCloseScoreRank={handleCloseScoreRank}
       onOpenHowTo={handleOpenHowTo}
