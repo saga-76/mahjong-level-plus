@@ -12,6 +12,7 @@ describe('QuizPage', () => {
         currentQuestionNumber={1}
         totalQuestions={10}
         onAnswer={vi.fn()}
+        onQuit={vi.fn()}
       />,
     )
 
@@ -22,7 +23,8 @@ describe('QuizPage', () => {
     expect(screen.getByText('子')).toBeInTheDocument()
     expect(screen.getByText('ロン')).toBeInTheDocument()
     expect(screen.getByText('5翻')).toBeInTheDocument()
-    expect(screen.getAllByRole('button')).toHaveLength(3)
+    expect(screen.getAllByRole('button')).toHaveLength(4)
+    expect(screen.getByRole('button', { name: 'やめる' })).toBeInTheDocument()
   })
 
   it('選択した回答をonAnswerで通知する', async () => {
@@ -33,6 +35,7 @@ describe('QuizPage', () => {
         currentQuestionNumber={1}
         totalQuestions={10}
         onAnswer={onAnswer}
+        onQuit={vi.fn()}
       />,
     )
 
@@ -51,11 +54,29 @@ describe('QuizPage', () => {
         currentQuestionNumber={6}
         totalQuestions={10}
         onAnswer={vi.fn()}
+        onQuit={vi.fn()}
       />,
     )
 
     expect(
       screen.getByRole('group', { name: '副露（ポン）' }),
     ).toBeInTheDocument()
+  })
+
+  it('やめるボタンからonQuitを通知する', async () => {
+    const onQuit = vi.fn()
+    const { user } = render(
+      <QuizPage
+        question={questions[0]}
+        currentQuestionNumber={1}
+        totalQuestions={10}
+        onAnswer={vi.fn()}
+        onQuit={onQuit}
+      />,
+    )
+
+    await user.click(screen.getByRole('button', { name: 'やめる' }))
+
+    expect(onQuit).toHaveBeenCalledOnce()
   })
 })

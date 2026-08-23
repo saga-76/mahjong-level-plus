@@ -26,4 +26,17 @@ describe('App routing', () => {
 
     expect(screen.getByRole('heading', { name: '1 / 10' })).toBeInTheDocument()
   })
+
+  it('問題画面のやめるボタンから確認なしでトップ画面へ戻る', async () => {
+    const { user } = render(
+      <MemoryRouter initialEntries={['/quiz']}>
+        <App />
+      </MemoryRouter>,
+    )
+
+    await user.click(screen.getByRole('button', { name: 'やめる' }))
+
+    expect(screen.queryByRole('dialog')).not.toBeInTheDocument()
+    expect(screen.getByRole('button', { name: 'スタート' })).toBeInTheDocument()
+  })
 })

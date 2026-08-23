@@ -11,7 +11,10 @@ function App() {
         path="/"
         element={<TopPageContainer onStart={() => navigate('/quiz')} />}
       />
-      <Route path="/quiz" element={<QuizPageContainer />} />
+      <Route
+        path="/quiz"
+        element={<QuizPageContainer onQuit={() => navigate('/')} />}
+      />
       <Route path="*" element={<Navigate to="/" replace />} />
     </Routes>
   )
