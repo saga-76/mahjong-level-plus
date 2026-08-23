@@ -7,6 +7,7 @@ type QuizPageProps = {
   readonly currentQuestionNumber: number
   readonly totalQuestions: number
   readonly onAnswer: (answer: string) => void
+  readonly onQuit: () => void
 }
 
 export function QuizPage({
@@ -14,6 +15,7 @@ export function QuizPage({
   currentQuestionNumber,
   totalQuestions,
   onAnswer,
+  onQuit,
 }: QuizPageProps) {
   const playerLabel = question.condition.player === 'dealer' ? '親' : '子'
   const winTypeLabel = question.condition.winType === 'ron' ? 'ロン' : 'ツモ'
@@ -26,7 +28,16 @@ export function QuizPage({
       />
       <div className="relative mx-auto w-full max-w-none rounded-xl border-2 border-[#c6a160] bg-[#082f25]/95 p-5 shadow-[0_16px_40px_rgba(0,0,0,0.7)] outline outline-1 -outline-offset-3 outline-[#d4ae6b]/40 sm:p-8">
         <div className="mx-auto flex w-full max-w-7xl flex-col gap-8">
-          <header className="text-center">
+          <header className="relative text-center">
+            <div className="mb-4 flex justify-end sm:absolute sm:top-0 sm:right-0 sm:mb-0">
+              <button
+                type="button"
+                className="cursor-pointer rounded border border-[#c6a160] bg-[#031a14]/70 px-4 py-2 text-sm font-semibold tracking-[0.12em] text-[#f1d49e] transition hover:bg-[#1b4b36] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#f1d49e]"
+                onClick={onQuit}
+              >
+                やめる
+              </button>
+            </div>
             <p className="text-sm tracking-[0.2em] text-[#d4ae6b]">QUESTION</p>
             <h1 className="mt-1 text-3xl font-semibold">
               {currentQuestionNumber} / {totalQuestions}

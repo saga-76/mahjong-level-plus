@@ -4,7 +4,11 @@ import { questions } from '../data/question'
 import { useQuizProgress } from '../hooks/useQuizProgress'
 import { selectQuestions } from '../logic/selectQuestions'
 
-export function QuizPageContainer() {
+type QuizPageContainerProps = {
+  readonly onQuit: () => void
+}
+
+export function QuizPageContainer({ onQuit }: QuizPageContainerProps) {
   const [quizQuestions] = useState(() => selectQuestions(questions))
   const {
     answers,
@@ -12,7 +16,13 @@ export function QuizPageContainer() {
     currentQuestion,
     currentQuestionIndex,
     isCompleted,
+    resetQuiz,
   } = useQuizProgress(quizQuestions)
+
+  const handleQuit = () => {
+    resetQuiz()
+    onQuit()
+  }
 
   if (isCompleted) {
     return (
@@ -39,6 +49,7 @@ export function QuizPageContainer() {
       currentQuestionNumber={currentQuestionIndex + 1}
       totalQuestions={quizQuestions.length}
       onAnswer={confirmAnswer}
+      onQuit={handleQuit}
     />
   )
 }
