@@ -5,6 +5,36 @@ import { questions } from '../data/question'
 import { useQuizProgress } from './useQuizProgress'
 
 describe('useQuizProgress', () => {
+  it('問題開始時に時間計測を開始する', () => {
+    const now = () => 1_000
+    const { result } = renderHook(() =>
+      useQuizProgress(questions, {
+        now,
+      }),
+    )
+
+    expect(result.current.startedAtMs).toBe(1_000)
+    expect(result.current.elapsedTimeMs).toBe(0)
+  })
+
+  it('回答確定時にミリ秒単位の経過時間を更新する', () => {
+    let currentTimeMs = 1_000
+    const now = () => currentTimeMs
+    const { result } = renderHook(() =>
+      useQuizProgress(questions, {
+        now,
+      }),
+    )
+
+    currentTimeMs = 1_123.6
+
+    act(() => {
+      result.current.confirmAnswer(questions[0].choices[0])
+    })
+
+    expect(result.current.elapsedTimeMs).toBe(124)
+  })
+
   it('選択した回答を回答履歴へ保存する', () => {
     const { result } = renderHook(() => useQuizProgress(questions))
     const firstQuestion = questions[0]
@@ -64,17 +94,72 @@ describe('useQuizProgress', () => {
   })
 
   it('10問目の回答確定後に完了状態になる', () => {
-    const { result } = renderHook(() => useQuizProgress(questions))
+    let currentTimeMs = 1_000
+    const now = () => currentTimeMs
+    const { result } = renderHook(() =>
+      useQuizProgress(questions, {
+        now,
+      }),
+    )
 
-    for (const question of questions) {
+    questions.forEach((question, index) => {
+      currentTimeMs = 1_100 + index * 100
+
       act(() => {
         result.current.confirmAnswer(question.choices[0])
       })
-    }
+    })
 
     expect(result.current.answers).toHaveLength(10)
     expect(result.current.status).toBe('completed')
     expect(result.current.isCompleted).toBe(true)
     expect(result.current.currentQuestion).toBeNull()
+    expect(result.current.elapsedTimeMs).toBe(1_000)
+
+    currentTimeMs = 5_000
+
+    act(() => {
+      result.current.confirmAnswer(questions[0].choices[0])
+    })
+
+    expect(result.current.elapsedTimeMs).toBe(1_000)
+  })
+
+  it('再挑戦時に進行状況と計測時間をリセットする', () => {
+    let currentTimeMs = 1_000
+    const now = () => currentTimeMs
+    const { result } = renderHook(() =>
+      useQuizProgress(questions, {
+        now,
+      }),
+    )
+
+    currentTimeMs = 1_250
+
+    act(() => {
+      result.current.confirmAnswer(questions[0].choices[0])
+    })
+
+    expect(result.current.elapsedTimeMs).toBe(250)
+
+    currentTimeMs = 2_000
+
+    act(() => {
+      result.current.resetQuiz()
+    })
+
+    expect(result.current.answers).toHaveLength(0)
+    expect(result.current.currentQuestionIndex).toBe(0)
+    expect(result.current.status).toBe('answering')
+    expect(result.current.startedAtMs).toBe(2_000)
+    expect(result.current.elapsedTimeMs).toBe(0)
+
+    currentTimeMs = 2_125
+
+    act(() => {
+      result.current.confirmAnswer(questions[0].choices[0])
+    })
+
+    expect(result.current.elapsedTimeMs).toBe(125)
   })
 })

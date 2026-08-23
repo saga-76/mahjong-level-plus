@@ -9,4 +9,6 @@ export type QuizProgressState = {
   readonly currentQuestionIndex: number
   readonly answers: readonly AnswerRecord[]
   readonly status: QuizStatus
+  readonly startedAtMs: number | null
+  readonly elapsedTimeMs: number
 }

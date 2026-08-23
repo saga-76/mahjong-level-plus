@@ -8,20 +8,59 @@ type ConfirmAnswerAction = {
   readonly question: Question
   readonly selectedAnswer: string
   readonly totalQuestions: number
+  readonly confirmedAtMs: number
 }
 
-function createInitialState(totalQuestions: number): QuizProgressState {
+type ResetQuizAction = {
+  readonly type: 'resetQuiz'
+  readonly totalQuestions: number
+  readonly startedAtMs: number
+}
+
+type QuizProgressAction = ConfirmAnswerAction | ResetQuizAction
+
+type InitialStateArguments = {
+  readonly totalQuestions: number
+  readonly now: () => number
+}
+
+type UseQuizProgressOptions = {
+  readonly now?: () => number
+}
+
+const getCurrentTimeMs = () => performance.now()
+
+function createInitialState({
+  totalQuestions,
+  now,
+}: InitialStateArguments): QuizProgressState {
+  const hasQuestions = totalQuestions > 0
+
   return {
     currentQuestionIndex: 0,
     answers: [],
-    status: totalQuestions === 0 ? 'completed' : 'answering',
+    status: hasQuestions ? 'answering' : 'completed',
+    startedAtMs: hasQuestions ? now() : null,
+    elapsedTimeMs: 0,
   }
 }
 
 function quizProgressReducer(
   state: QuizProgressState,
-  action: ConfirmAnswerAction,
+  action: QuizProgressAction,
 ): QuizProgressState {
+  if (action.type === 'resetQuiz') {
+    const hasQuestions = action.totalQuestions > 0
+
+    return {
+      currentQuestionIndex: 0,
+      answers: [],
+      status: hasQuestions ? 'answering' : 'completed',
+      startedAtMs: hasQuestions ? action.startedAtMs : null,
+      elapsedTimeMs: 0,
+    }
+  }
+
   if (state.status === 'completed') {
     return state
   }
@@ -42,6 +81,10 @@ function quizProgressReducer(
     },
   ]
   const isLastQuestion = state.currentQuestionIndex >= action.totalQuestions - 1
+  const elapsedTimeMs =
+    state.startedAtMs === null
+      ? 0
+      : Math.max(0, Math.round(action.confirmedAtMs - state.startedAtMs))
 
   return {
     currentQuestionIndex: isLastQuestion
@@ -49,13 +92,22 @@ function quizProgressReducer(
       : state.currentQuestionIndex + 1,
     answers,
     status: isLastQuestion ? 'completed' : 'answering',
+    startedAtMs: state.startedAtMs,
+    elapsedTimeMs,
   }
 }
 
-export function useQuizProgress(questions: readonly Question[]) {
+export function useQuizProgress(
+  questions: readonly Question[],
+  options: UseQuizProgressOptions = {},
+) {
+  const now = options.now ?? getCurrentTimeMs
   const [state, dispatch] = useReducer(
     quizProgressReducer,
-    questions.length,
+    {
+      totalQuestions: questions.length,
+      now,
+    },
     createInitialState,
   )
 
@@ -75,15 +127,25 @@ export function useQuizProgress(questions: readonly Question[]) {
         question: currentQuestion,
         selectedAnswer,
         totalQuestions: questions.length,
+        confirmedAtMs: now(),
       })
     },
-    [currentQuestion, questions.length],
+    [currentQuestion, now, questions.length],
   )
+
+  const resetQuiz = useCallback(() => {
+    dispatch({
+      type: 'resetQuiz',
+      totalQuestions: questions.length,
+      startedAtMs: now(),
+    })
+  }, [now, questions.length])
 
   return {
     ...state,
     currentQuestion,
     isCompleted: state.status === 'completed',
     confirmAnswer,
+    resetQuiz,
   }
 }
