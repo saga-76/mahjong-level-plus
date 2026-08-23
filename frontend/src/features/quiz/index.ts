@@ -4,6 +4,12 @@ export { MahjongTile } from './components/MahjongTile'
 export { WinningHand } from './components/WinningHand'
 export { QuizPageContainer } from './containers/QuizPageContainer'
 export { useQuizProgress } from './hooks/useQuizProgress'
+export {
+  calculateScore,
+  POINTS_PER_CORRECT_ANSWER,
+  TIME_BONUS_BASE_SCORE,
+  TIME_BONUS_REFERENCE_MS,
+} from './logic/calculateScore'
 export { QUESTIONS_PER_PATTERN, selectQuestions } from './logic/selectQuestions'
 
 export type {
@@ -25,3 +31,4 @@ export type {
   QuizProgressState,
   QuizStatus,
 } from './types/answer'
+export type { ScoreResult } from './types/score'
