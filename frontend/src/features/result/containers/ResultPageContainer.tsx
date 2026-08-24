@@ -10,7 +10,11 @@ export function ResultPageContainer({
   result,
   onReview,
 }: ResultPageContainerProps) {
-  const rankCriterion = determineRank(result.totalScore)
+  const rankCriterion = determineRank({
+    score: result.totalScore,
+    correctCount: result.correctCount,
+    totalQuestions: result.totalQuestions,
+  })
 
   return (
     <ResultPage

@@ -8,7 +8,7 @@ export { useQuizProgress } from './hooks/useQuizProgress'
 export {
   calculateScore,
   POINTS_PER_CORRECT_ANSWER,
-  TIME_BONUS_BASE_SCORE,
+  TIME_BONUS_MAX_SCORE,
   TIME_BONUS_REFERENCE_MS,
 } from './logic/calculateScore'
 export { determineRank } from './logic/determineRank'

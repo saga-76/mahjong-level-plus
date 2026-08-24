@@ -29,31 +29,51 @@ describe('rankCriteria', () => {
 describe('determineRank', () => {
   it.each([
     [0, 'G'],
-    [200, 'G'],
-    [201, 'F'],
-    [400, 'F'],
-    [401, 'E'],
-    [600, 'E'],
-    [601, 'D'],
-    [800, 'D'],
-    [801, 'C'],
-    [1_000, 'C'],
-    [1_001, 'B'],
-    [1_200, 'B'],
-    [1_201, 'A'],
-    [1_400, 'A'],
-    [1_401, 'S'],
-    [1_600, 'S'],
-    [1_601, 'SS'],
-    [1_800, 'SS'],
-    [1_801, 'SSS'],
-    [100_000, 'SSS'],
+    [999, 'G'],
+    [1_000, 'F'],
+    [1_999, 'F'],
+    [2_000, 'E'],
+    [2_999, 'E'],
+    [3_000, 'D'],
+    [3_999, 'D'],
+    [4_000, 'C'],
+    [4_999, 'C'],
+    [5_000, 'B'],
+    [5_999, 'B'],
+    [6_000, 'A'],
+    [6_999, 'A'],
+    [7_000, 'S'],
+    [8_499, 'S'],
+    [8_500, 'SS'],
+    [9_999, 'SS'],
+    [10_000, 'SSS'],
+    [10_500, 'SSS'],
   ] as const)('スコア%sをランク%sと判定する', (score, expectedRank) => {
-    expect(determineRank(score).rank).toBe(expectedRank)
+    expect(
+      determineRank({ score, correctCount: 10, totalQuestions: 10 }).rank,
+    ).toBe(expectedRank)
+  })
+
+  it('10,000点以上でも全問正解でなければSSランクと判定する', () => {
+    expect(
+      determineRank({
+        score: 10_000,
+        correctCount: 9,
+        totalQuestions: 10,
+      }).rank,
+    ).toBe('SS')
   })
 
   it('負のスコアとNaNはランクGと判定する', () => {
-    expect(determineRank(-1).rank).toBe('G')
-    expect(determineRank(Number.NaN).rank).toBe('G')
+    expect(
+      determineRank({ score: -1, correctCount: 0, totalQuestions: 10 }).rank,
+    ).toBe('G')
+    expect(
+      determineRank({
+        score: Number.NaN,
+        correctCount: 0,
+        totalQuestions: 10,
+      }).rank,
+    ).toBe('G')
   })
 })
