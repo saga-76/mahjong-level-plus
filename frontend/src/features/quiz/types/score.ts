@@ -4,3 +4,8 @@ export type ScoreResult = {
   readonly timeBonus: number
   readonly totalScore: number
 }
+
+export type QuizResult = ScoreResult & {
+  readonly totalQuestions: number
+  readonly elapsedTimeMs: number
+}
