@@ -1,4 +1,5 @@
 export { questions } from './data/question'
+export { rankCriteria } from './data/rankCriteria'
 export { AnswerChoices } from './components/AnswerChoices'
 export { MahjongTile } from './components/MahjongTile'
 export { WinningHand } from './components/WinningHand'
@@ -10,6 +11,7 @@ export {
   TIME_BONUS_BASE_SCORE,
   TIME_BONUS_REFERENCE_MS,
 } from './logic/calculateScore'
+export { determineRank } from './logic/determineRank'
 export { QUESTIONS_PER_PATTERN, selectQuestions } from './logic/selectQuestions'
 
 export type {
@@ -31,4 +33,5 @@ export type {
   QuizProgressState,
   QuizStatus,
 } from './types/answer'
-export type { ScoreResult } from './types/score'
+export type { Rank, RankCriterion } from './types/rank'
+export type { QuizResult, ScoreResult } from './types/score'

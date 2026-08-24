@@ -39,4 +39,38 @@ describe('App routing', () => {
     expect(screen.queryByRole('dialog')).not.toBeInTheDocument()
     expect(screen.getByRole('button', { name: 'スタート' })).toBeInTheDocument()
   })
+
+  it('10問完了後に結果画面へ遷移する', async () => {
+    const { user } = render(
+      <MemoryRouter initialEntries={['/quiz']}>
+        <App />
+      </MemoryRouter>,
+    )
+
+    for (let index = 0; index < 10; index += 1) {
+      await user.click(
+        screen
+          .getByRole('group', { name: '点数の選択肢' })
+          .querySelector('button')!,
+      )
+    }
+
+    expect(
+      await screen.findByRole('heading', { name: '結果' }),
+    ).toBeInTheDocument()
+    expect(screen.getByLabelText('ランク')).toBeInTheDocument()
+    expect(screen.getByText('スコア')).toBeInTheDocument()
+    expect(screen.getByText('正解数')).toBeInTheDocument()
+    expect(screen.getByText('回答時間')).toBeInTheDocument()
+  })
+
+  it('結果データなしで/resultを開くとトップ画面へ戻る', () => {
+    render(
+      <MemoryRouter initialEntries={['/result']}>
+        <App />
+      </MemoryRouter>,
+    )
+
+    expect(screen.getByRole('button', { name: 'スタート' })).toBeInTheDocument()
+  })
 })
