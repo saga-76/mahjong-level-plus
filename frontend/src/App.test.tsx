@@ -77,6 +77,35 @@ describe('App routing', () => {
     ).toBeInTheDocument()
   })
 
+  it('結果画面から状態を初期化して第1問へ再挑戦できる', async () => {
+    const { user } = render(
+      <MemoryRouter initialEntries={['/quiz']}>
+        <App />
+      </MemoryRouter>,
+    )
+
+    for (let index = 0; index < 10; index += 1) {
+      await user.click(
+        screen
+          .getByRole('group', { name: '点数の選択肢' })
+          .querySelector('button')!,
+      )
+    }
+
+    expect(
+      await screen.findByRole('heading', { name: '結果' }),
+    ).toBeInTheDocument()
+
+    await user.click(screen.getByRole('button', { name: 'もう一度挑戦' }))
+
+    expect(
+      await screen.findByRole('heading', { name: '1 / 10' }),
+    ).toBeInTheDocument()
+    expect(
+      screen.queryByRole('heading', { name: '結果' }),
+    ).not.toBeInTheDocument()
+  })
+
   it.each(['/result', '/review'])(
     '結果データなしで%sを開くとトップ画面へ戻る',
     (path) => {

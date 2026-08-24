@@ -26,11 +26,13 @@ const rankCriterion: RankCriterion = {
 describe('ResultPage', () => {
   it('スコア・ランク・習熟度・正解数・回答時間を表示する', async () => {
     const onReview = vi.fn()
+    const onRetry = vi.fn()
     const { user } = render(
       <ResultPage
         result={result}
         rankCriterion={rankCriterion}
         onReview={onReview}
+        onRetry={onRetry}
       />,
     )
 
@@ -44,5 +46,21 @@ describe('ResultPage', () => {
     await user.click(screen.getByRole('button', { name: '10問の解説を見る' }))
 
     expect(onReview).toHaveBeenCalledOnce()
+  })
+
+  it('もう一度挑戦ボタンから再挑戦を通知する', async () => {
+    const onRetry = vi.fn()
+    const { user } = render(
+      <ResultPage
+        result={result}
+        rankCriterion={rankCriterion}
+        onReview={vi.fn()}
+        onRetry={onRetry}
+      />,
+    )
+
+    await user.click(screen.getByRole('button', { name: 'もう一度挑戦' }))
+
+    expect(onRetry).toHaveBeenCalledOnce()
   })
 })
