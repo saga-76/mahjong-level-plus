@@ -2,9 +2,9 @@ import type { AnswerRecord } from '../types/answer'
 import type { Question } from '../types/question'
 import type { ScoreResult } from '../types/score'
 
-export const POINTS_PER_CORRECT_ANSWER = 100
-export const TIME_BONUS_BASE_SCORE = 1_000
-export const TIME_BONUS_REFERENCE_MS = 30_000
+export const POINTS_PER_CORRECT_ANSWER = 1_000
+export const TIME_BONUS_MAX_SCORE = 500
+export const TIME_BONUS_REFERENCE_MS = 60_000
 
 type CalculateScoreArguments = {
   readonly questions: readonly Question[]
@@ -33,9 +33,12 @@ export function calculateScore({
   const canCalculateTimeBonus =
     accuracy > 0 && Number.isFinite(elapsedTimeMs) && elapsedTimeMs > 0
   const timeBonus = canCalculateTimeBonus
-    ? Math.floor(
-        (TIME_BONUS_BASE_SCORE * accuracy * TIME_BONUS_REFERENCE_MS) /
-          elapsedTimeMs,
+    ? Math.min(
+        TIME_BONUS_MAX_SCORE,
+        Math.floor(
+          (TIME_BONUS_MAX_SCORE * accuracy * TIME_BONUS_REFERENCE_MS) /
+            elapsedTimeMs,
+        ),
       )
     : 0
 

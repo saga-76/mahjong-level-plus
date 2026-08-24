@@ -15,7 +15,7 @@ function createAnswers(correctAnswerCount: number): AnswerRecord[] {
 }
 
 describe('calculateScore', () => {
-  it('1問正解につき100点を加算して正解数を集計する', () => {
+  it('1問正解につき1,000点を加算して正解数を集計する', () => {
     const result = calculateScore({
       questions,
       answers: createAnswers(5),
@@ -23,43 +23,43 @@ describe('calculateScore', () => {
     })
 
     expect(result.correctCount).toBe(5)
-    expect(result.correctScore).toBe(500)
+    expect(result.correctScore).toBe(5_000)
   })
 
   it('正答率と回答時間からタイムボーナスを計算する', () => {
     const result = calculateScore({
       questions,
       answers: createAnswers(10),
-      elapsedTimeMs: 60_000,
+      elapsedTimeMs: 120_000,
     })
 
-    expect(result.timeBonus).toBe(500)
+    expect(result.timeBonus).toBe(250)
   })
 
   it('正解点とタイムボーナスを合計する', () => {
     const result = calculateScore({
       questions,
       answers: createAnswers(10),
-      elapsedTimeMs: 30_000,
+      elapsedTimeMs: 60_000,
     })
 
     expect(result).toEqual({
       correctCount: 10,
-      correctScore: 1_000,
-      timeBonus: 1_000,
-      totalScore: 2_000,
+      correctScore: 10_000,
+      timeBonus: 500,
+      totalScore: 10_500,
     })
   })
 
-  it('回答が速い場合もスコアに上限を設けない', () => {
+  it('回答が速い場合もタイムボーナスを500点までに制限する', () => {
     const result = calculateScore({
       questions,
       answers: createAnswers(10),
       elapsedTimeMs: 1,
     })
 
-    expect(result.timeBonus).toBe(30_000_000)
-    expect(result.totalScore).toBe(30_001_000)
+    expect(result.timeBonus).toBe(500)
+    expect(result.totalScore).toBe(10_500)
   })
 
   it('正解数が0または回答時間が0の場合はタイムボーナスを0にする', () => {
@@ -77,7 +77,7 @@ describe('calculateScore', () => {
     expect(noCorrectAnswers.timeBonus).toBe(0)
     expect(noCorrectAnswers.totalScore).toBe(0)
     expect(zeroElapsedTime.timeBonus).toBe(0)
-    expect(zeroElapsedTime.totalScore).toBe(1_000)
+    expect(zeroElapsedTime.totalScore).toBe(10_000)
   })
 
   it('同じ問題の回答が重複しても正解数を重複集計しない', () => {
@@ -99,6 +99,6 @@ describe('calculateScore', () => {
     })
 
     expect(result.correctCount).toBe(1)
-    expect(result.correctScore).toBe(100)
+    expect(result.correctScore).toBe(1_000)
   })
 })

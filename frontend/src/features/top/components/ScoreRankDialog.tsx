@@ -42,7 +42,7 @@ export function ScoreRankDialog({ isOpen, onClose }: ScoreRankDialogProps) {
         </h2>
 
         <p className="mt-4 text-center text-[#f5e7c8]">
-          最終得点は、正解数と回答時間によって決まります。
+          正解1問につき1,000点、回答時間に応じて最大500点が加算されます。
         </p>
 
         <div className="mt-6 overflow-x-auto">
@@ -70,6 +70,8 @@ export function ScoreRankDialog({ isOpen, onClose }: ScoreRankDialogProps) {
         </div>
 
         <p className="mt-4 text-center text-sm text-[#d6bb88]">
+          SSSランクは、10問全問正解かつ10,000点以上の場合に獲得できます。
+          <br />
           ランクと説明は、本サービスのスコアをもとにした習熟度の目安です。
         </p>
 
