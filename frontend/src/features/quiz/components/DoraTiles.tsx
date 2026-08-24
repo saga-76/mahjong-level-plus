@@ -7,6 +7,8 @@ type DoraTilesProps = {
 }
 
 export function DoraTiles({ tiles, compact = false }: DoraTilesProps) {
+  const emptyStateSizeClass = compact ? 'w-10' : 'w-10 sm:w-12 md:w-14'
+
   return (
     <div
       role="group"
@@ -14,7 +16,11 @@ export function DoraTiles({ tiles, compact = false }: DoraTilesProps) {
       className="flex items-end justify-center gap-1"
     >
       {tiles.length === 0 ? (
-        <span className="text-sm text-[#f5e7c8]">なし</span>
+        <span
+          className={`flex aspect-[3/4] shrink-0 items-center justify-center text-sm text-[#f5e7c8] ${emptyStateSizeClass}`}
+        >
+          なし
+        </span>
       ) : (
         tiles.map((tile, index) => (
           <MahjongTile

@@ -5,12 +5,14 @@ type ResultPageContainerProps = {
   readonly result: QuizResult
   readonly onReview: () => void
   readonly onRetry: () => void
+  readonly onTop: () => void
 }
 
 export function ResultPageContainer({
   result,
   onReview,
   onRetry,
+  onTop,
 }: ResultPageContainerProps) {
   const rankCriterion = determineRank({
     score: result.totalScore,
@@ -24,6 +26,7 @@ export function ResultPageContainer({
       rankCriterion={rankCriterion}
       onReview={onReview}
       onRetry={onRetry}
+      onTop={onTop}
     />
   )
 }

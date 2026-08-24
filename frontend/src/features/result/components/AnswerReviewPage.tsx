@@ -4,23 +4,49 @@ import type { ReviewedQuestion } from '../types/review'
 type AnswerReviewPageProps = {
   readonly reviewedQuestions: readonly ReviewedQuestion[]
   readonly onBack: () => void
+  readonly onRetry: () => void
+  readonly onTop: () => void
 }
 
-function BackButton({ onBack }: { readonly onBack: () => void }) {
+type ReviewActionsProps = {
+  readonly onBack: () => void
+  readonly onRetry: () => void
+  readonly onTop: () => void
+}
+
+function ReviewActions({ onBack, onRetry, onTop }: ReviewActionsProps) {
   return (
-    <button
-      type="button"
-      className="cursor-pointer rounded border-2 border-[#c6a160] bg-[#f2e5c8] px-6 py-3 font-semibold text-[#063b2b] transition hover:bg-[#f8efd9] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#f1d49e]"
-      onClick={onBack}
-    >
-      結果に戻る
-    </button>
+    <div className="flex flex-wrap justify-center gap-3">
+      <button
+        type="button"
+        className="cursor-pointer rounded border-2 border-[#c6a160] bg-[#f2e5c8] px-6 py-3 font-semibold text-[#063b2b] transition hover:bg-[#f8efd9] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#f1d49e]"
+        onClick={onBack}
+      >
+        結果に戻る
+      </button>
+      <button
+        type="button"
+        className="cursor-pointer rounded border-2 border-[#c6a160] bg-[#123727] px-6 py-3 font-semibold text-[#f1d49e] transition hover:bg-[#1b4b36] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#f1d49e]"
+        onClick={onRetry}
+      >
+        もう一度挑戦
+      </button>
+      <button
+        type="button"
+        className="cursor-pointer rounded border-2 border-[#c6a160] bg-transparent px-6 py-3 font-semibold text-[#f1d49e] transition hover:bg-[#1b4b36] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#f1d49e]"
+        onClick={onTop}
+      >
+        トップ画面
+      </button>
+    </div>
   )
 }
 
 export function AnswerReviewPage({
   reviewedQuestions,
   onBack,
+  onRetry,
+  onTop,
 }: AnswerReviewPageProps) {
   return (
     <main className="relative min-h-screen bg-[#031a14] px-3 py-6 text-[#f1d49e] sm:px-6 sm:py-10">
@@ -37,7 +63,7 @@ export function AnswerReviewPage({
               10問の解説
             </h1>
           </div>
-          <BackButton onBack={onBack} />
+          <ReviewActions onBack={onBack} onRetry={onRetry} onTop={onTop} />
         </header>
 
         <ol className="mt-8 space-y-8">
@@ -140,8 +166,8 @@ export function AnswerReviewPage({
           )}
         </ol>
 
-        <div className="mt-10 flex justify-center">
-          <BackButton onBack={onBack} />
+        <div className="mt-10">
+          <ReviewActions onBack={onBack} onRetry={onRetry} onTop={onTop} />
         </div>
       </div>
     </main>

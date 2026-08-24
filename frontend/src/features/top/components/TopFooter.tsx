@@ -1,6 +1,6 @@
 export function TopFooter() {
   return (
-    <footer className="relative z-30 px-4 py-5 sm:py-6">
+    <footer className="relative z-30 px-4 py-5 sm:py-6 [@media(max-height:850px)]:py-2">
       <nav aria-label="フッターメニュー">
         <ul className="flex flex-wrap justify-center gap-x-6 gap-y-2 text-sm text-[#e7d3aa] sm:text-base">
           <li>

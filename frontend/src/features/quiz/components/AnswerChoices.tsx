@@ -23,7 +23,7 @@ export function AnswerChoices({
             key={`${choice}-${index}`}
             type="button"
             aria-pressed={isSelected}
-            className={`min-h-16 cursor-pointer rounded border-2 px-4 py-3 text-lg font-semibold transition focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#f1d49e] ${
+            className={`min-h-16 cursor-pointer rounded border-2 px-4 py-3 text-lg font-semibold transition focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#f1d49e] [@media(max-height:900px)]:min-h-12 [@media(max-height:900px)]:py-2 ${
               isSelected
                 ? 'border-[#f1d49e] bg-[#1b4b36] text-[#f1d49e] ring-2 ring-[#d4ae6b]'
                 : 'border-[#c6a160] bg-[#f2e5c8] text-[#063b2b] hover:bg-[#f8efd9]'

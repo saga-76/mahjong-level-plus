@@ -5,6 +5,7 @@ type ResultPageProps = {
   readonly rankCriterion: RankCriterion
   readonly onReview: () => void
   readonly onRetry: () => void
+  readonly onTop: () => void
 }
 
 function formatElapsedTime(elapsedTimeMs: number): string {
@@ -16,6 +17,7 @@ export function ResultPage({
   rankCriterion,
   onReview,
   onRetry,
+  onTop,
 }: ResultPageProps) {
   return (
     <main className="relative flex min-h-screen items-center justify-center overflow-hidden bg-[#031a14] px-4 py-8 text-[#f1d49e] sm:px-6">
@@ -78,6 +80,13 @@ export function ResultPage({
             onClick={onReview}
           >
             10問の解説を見る
+          </button>
+          <button
+            type="button"
+            className="min-w-64 cursor-pointer rounded border-2 border-[#c6a160] bg-transparent px-8 py-4 text-lg font-semibold tracking-[0.08em] text-[#f1d49e] transition hover:bg-[#1b4b36] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#f1d49e]"
+            onClick={onTop}
+          >
+            トップ画面
           </button>
         </div>
       </section>

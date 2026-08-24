@@ -27,12 +27,14 @@ describe('ResultPage', () => {
   it('スコア・ランク・習熟度・正解数・回答時間を表示する', async () => {
     const onReview = vi.fn()
     const onRetry = vi.fn()
+    const onTop = vi.fn()
     const { user } = render(
       <ResultPage
         result={result}
         rankCriterion={rankCriterion}
         onReview={onReview}
         onRetry={onRetry}
+        onTop={onTop}
       />,
     )
 
@@ -56,11 +58,29 @@ describe('ResultPage', () => {
         rankCriterion={rankCriterion}
         onReview={vi.fn()}
         onRetry={onRetry}
+        onTop={vi.fn()}
       />,
     )
 
     await user.click(screen.getByRole('button', { name: 'もう一度挑戦' }))
 
     expect(onRetry).toHaveBeenCalledOnce()
+  })
+
+  it('トップ画面ボタンからトップ画面への遷移を通知する', async () => {
+    const onTop = vi.fn()
+    const { user } = render(
+      <ResultPage
+        result={result}
+        rankCriterion={rankCriterion}
+        onReview={vi.fn()}
+        onRetry={vi.fn()}
+        onTop={onTop}
+      />,
+    )
+
+    await user.click(screen.getByRole('button', { name: 'トップ画面' }))
+
+    expect(onTop).toHaveBeenCalledOnce()
   })
 })

@@ -21,6 +21,8 @@ describe('AnswerReviewPage', () => {
       <AnswerReviewPage
         reviewedQuestions={reviewedQuestions}
         onBack={vi.fn()}
+        onRetry={vi.fn()}
+        onTop={vi.fn()}
       />,
     )
 
@@ -69,11 +71,32 @@ describe('AnswerReviewPage', () => {
       <AnswerReviewPage
         reviewedQuestions={reviewedQuestions}
         onBack={onBack}
+        onRetry={vi.fn()}
+        onTop={vi.fn()}
       />,
     )
 
     await user.click(screen.getAllByRole('button', { name: '結果に戻る' })[0])
 
     expect(onBack).toHaveBeenCalledOnce()
+  })
+
+  it('再挑戦とトップ画面への移動を通知する', async () => {
+    const onRetry = vi.fn()
+    const onTop = vi.fn()
+    const { user } = render(
+      <AnswerReviewPage
+        reviewedQuestions={reviewedQuestions}
+        onBack={vi.fn()}
+        onRetry={onRetry}
+        onTop={onTop}
+      />,
+    )
+
+    await user.click(screen.getAllByRole('button', { name: 'もう一度挑戦' })[0])
+    await user.click(screen.getAllByRole('button', { name: 'トップ画面' })[0])
+
+    expect(onRetry).toHaveBeenCalledOnce()
+    expect(onTop).toHaveBeenCalledOnce()
   })
 })
