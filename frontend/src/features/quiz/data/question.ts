@@ -29,9 +29,12 @@ export const questions = [
     },
     choices: ['3,900点', '5,200点', '8,000点'],
     correctAnswer: '8,000点',
+    yaku: [{ name: 'リーチ', han: 1 }],
     han: 5,
     fu: null,
-    explanation: '子のロン和了で5翻のため、満貫の8,000点です。',
+    dora: 4,
+    explanation:
+      'リーチ1翻とドラ4枚で計5翻です。子のロン和了は満貫の8,000点になります。',
   },
   {
     id: 'question-002',
@@ -61,9 +64,12 @@ export const questions = [
     },
     choices: ['8,000点', '12,000点', '18,000点'],
     correctAnswer: '12,000点',
+    yaku: [{ name: 'リーチ', han: 1 }],
     han: 5,
     fu: null,
-    explanation: '親のロン和了で5翻のため、満貫の12,000点です。',
+    dora: 4,
+    explanation:
+      'リーチ1翻とドラ4枚で計5翻です。親のロン和了は満貫の12,000点になります。',
   },
   {
     id: 'question-003',
@@ -93,9 +99,12 @@ export const questions = [
     },
     choices: ['8,000点', '12,000点', '16,000点'],
     correctAnswer: '12,000点',
+    yaku: [{ name: 'リーチ', han: 1 }],
     han: 6,
     fu: null,
-    explanation: '子のロン和了で6翻のため、跳満の12,000点です。',
+    dora: 5,
+    explanation:
+      'リーチ1翻とドラ5枚で計6翻です。子のロン和了は跳満の12,000点になります。',
   },
   {
     id: 'question-004',
@@ -125,9 +134,12 @@ export const questions = [
     },
     choices: ['12,000点', '18,000点', '24,000点'],
     correctAnswer: '18,000点',
+    yaku: [{ name: 'リーチ', han: 1 }],
     han: 6,
     fu: null,
-    explanation: '親のロン和了で6翻のため、跳満の18,000点です。',
+    dora: 5,
+    explanation:
+      'リーチ1翻とドラ5枚で計6翻です。親のロン和了は跳満の18,000点になります。',
   },
   {
     id: 'question-005',
@@ -157,9 +169,12 @@ export const questions = [
     },
     choices: ['12,000点', '16,000点', '24,000点'],
     correctAnswer: '16,000点',
+    yaku: [{ name: 'リーチ', han: 1 }],
     han: 8,
     fu: null,
-    explanation: '子のロン和了で8翻のため、倍満の16,000点です。',
+    dora: 7,
+    explanation:
+      'リーチ1翻とドラ7枚で計8翻です。子のロン和了は倍満の16,000点になります。',
   },
   {
     id: 'question-006',
@@ -191,9 +206,12 @@ export const questions = [
     },
     choices: ['3,900点', '5,200点', '7,700点'],
     correctAnswer: '5,200点',
+    yaku: [{ name: '役牌 中', han: 1 }],
     han: 3,
     fu: 40,
-    explanation: '子のロン和了で40符3翻のため、5,200点です。',
+    dora: 2,
+    explanation:
+      '役牌 中1翻とドラ2枚で計3翻です。子のロン和了で40符3翻のため、5,200点になります。',
   },
   {
     id: 'question-007',
@@ -225,9 +243,12 @@ export const questions = [
     },
     choices: ['2,000点', '2,600点', '3,200点'],
     correctAnswer: '2,600点',
+    yaku: [{ name: '役牌 場風 東', han: 1 }],
     han: 2,
     fu: 40,
-    explanation: '子のロン和了で40符2翻のため、2,600点です。',
+    dora: 1,
+    explanation:
+      '役牌 場風 東1翻とドラ1枚で計2翻です。子のロン和了で40符2翻のため、2,600点になります。',
   },
   {
     id: 'question-008',
@@ -257,9 +278,12 @@ export const questions = [
     },
     choices: ['2,600点', '3,900点', '5,200点'],
     correctAnswer: '3,900点',
+    yaku: [{ name: 'リーチ', han: 1 }],
     han: 3,
     fu: 30,
-    explanation: '子のロン和了で30符3翻のため、3,900点です。',
+    dora: 2,
+    explanation:
+      'リーチ1翻とドラ2枚で計3翻です。子のロン和了で30符3翻のため、3,900点になります。',
   },
   {
     id: 'question-009',
@@ -289,9 +313,12 @@ export const questions = [
     },
     choices: ['3,900点', '5,800点', '7,700点'],
     correctAnswer: '5,800点',
+    yaku: [{ name: 'リーチ', han: 1 }],
     han: 3,
     fu: 30,
-    explanation: '親のロン和了で30符3翻のため、5,800点です。',
+    dora: 2,
+    explanation:
+      'リーチ1翻とドラ2枚で計3翻です。親のロン和了で30符3翻のため、5,800点になります。',
   },
   {
     id: 'question-010',
@@ -321,8 +348,11 @@ export const questions = [
     },
     choices: ['2,600点', '3,200点', '3,900点'],
     correctAnswer: '3,200点',
+    yaku: [{ name: 'リーチ', han: 1 }],
     han: 2,
     fu: 50,
-    explanation: '子のロン和了で50符2翻のため、3,200点です。',
+    dora: 1,
+    explanation:
+      'リーチ1翻とドラ1枚で計2翻です。子のロン和了で50符2翻のため、3,200点になります。',
   },
 ] as const satisfies readonly Question[]

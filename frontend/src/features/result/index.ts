@@ -1,2 +1,5 @@
+export { AnswerReviewPage } from './components/AnswerReviewPage'
 export { ResultPage } from './components/ResultPage'
+export { AnswerReviewPageContainer } from './containers/AnswerReviewPageContainer'
 export { ResultPageContainer } from './containers/ResultPageContainer'
+export type { ReviewedQuestion } from './types/review'

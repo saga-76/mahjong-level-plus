@@ -3,10 +3,20 @@ import { ResultPage } from '../components/ResultPage'
 
 type ResultPageContainerProps = {
   readonly result: QuizResult
+  readonly onReview: () => void
 }
 
-export function ResultPageContainer({ result }: ResultPageContainerProps) {
+export function ResultPageContainer({
+  result,
+  onReview,
+}: ResultPageContainerProps) {
   const rankCriterion = determineRank(result.totalScore)
 
-  return <ResultPage result={result} rankCriterion={rankCriterion} />
+  return (
+    <ResultPage
+      result={result}
+      rankCriterion={rankCriterion}
+      onReview={onReview}
+    />
+  )
 }

@@ -38,13 +38,20 @@ export type QuestionCondition = {
   readonly winType: WinType
 }
 
+export type Yaku = {
+  readonly name: string
+  readonly han: number
+}
+
 type BaseQuestion = {
   readonly id: string
   readonly hand: QuestionHand
   readonly condition: QuestionCondition
   readonly choices: readonly [string, string, string]
   readonly correctAnswer: string
+  readonly yaku: readonly Yaku[]
   readonly han: number
+  readonly dora: number
   readonly explanation: string
 }
 

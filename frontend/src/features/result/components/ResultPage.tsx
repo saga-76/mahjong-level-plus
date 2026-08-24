@@ -3,13 +3,18 @@ import type { QuizResult, RankCriterion } from '../../quiz'
 type ResultPageProps = {
   readonly result: QuizResult
   readonly rankCriterion: RankCriterion
+  readonly onReview: () => void
 }
 
 function formatElapsedTime(elapsedTimeMs: number): string {
   return `${(elapsedTimeMs / 1_000).toFixed(3)}秒`
 }
 
-export function ResultPage({ result, rankCriterion }: ResultPageProps) {
+export function ResultPage({
+  result,
+  rankCriterion,
+  onReview,
+}: ResultPageProps) {
   return (
     <main className="relative flex min-h-screen items-center justify-center overflow-hidden bg-[#031a14] px-4 py-8 text-[#f1d49e] sm:px-6">
       <div
@@ -56,6 +61,14 @@ export function ResultPage({ result, rankCriterion }: ResultPageProps) {
             </p>
           </div>
         </div>
+
+        <button
+          type="button"
+          className="mt-8 min-w-64 cursor-pointer rounded border-2 border-[#c6a160] bg-[#f2e5c8] px-8 py-4 text-lg font-semibold tracking-[0.08em] text-[#063b2b] transition hover:bg-[#f8efd9] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#f1d49e]"
+          onClick={onReview}
+        >
+          10問の解説を見る
+        </button>
       </section>
     </main>
   )
