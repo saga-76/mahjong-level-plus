@@ -106,6 +106,32 @@ describe('App routing', () => {
     ).not.toBeInTheDocument()
   })
 
+  it('結果画面からトップ画面へ戻れる', async () => {
+    const { user } = render(
+      <MemoryRouter initialEntries={['/quiz']}>
+        <App />
+      </MemoryRouter>,
+    )
+
+    for (let index = 0; index < 10; index += 1) {
+      await user.click(
+        screen
+          .getByRole('group', { name: '点数の選択肢' })
+          .querySelector('button')!,
+      )
+    }
+
+    expect(
+      await screen.findByRole('heading', { name: '結果' }),
+    ).toBeInTheDocument()
+
+    await user.click(screen.getByRole('button', { name: 'トップ画面' }))
+
+    expect(
+      await screen.findByRole('button', { name: 'スタート' }),
+    ).toBeInTheDocument()
+  })
+
   it.each(['/result', '/review'])(
     '結果データなしで%sを開くとトップ画面へ戻る',
     (path) => {

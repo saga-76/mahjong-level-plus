@@ -30,19 +30,19 @@ export function TopPage({
     >
       <div aria-hidden="true" className="absolute inset-0 bg-black/20" />
       <div className="relative z-20 flex min-h-svh flex-col">
-        <main className="flex flex-1 items-center justify-center px-4 py-12 sm:px-6">
-          <section className="flex w-full max-w-4xl -translate-y-6 flex-col items-center text-center">
-            <h1 className="bg-gradient-to-b from-[#fff1c7] via-[#d8ad68] to-[#9a682e] bg-clip-text text-5xl leading-tight font-bold tracking-[0.08em] text-transparent drop-shadow-[0_4px_3px_rgba(0,0,0,0.8)] sm:text-7xl md:text-8xl lg:text-9xl">
+        <main className="flex flex-1 items-center justify-center px-4 py-12 sm:px-6 [@media(max-height:850px)]:py-3">
+          <section className="flex w-full max-w-4xl -translate-y-6 flex-col items-center text-center [@media(max-height:850px)]:translate-y-0">
+            <h1 className="bg-gradient-to-b from-[#fff1c7] via-[#d8ad68] to-[#9a682e] bg-clip-text text-5xl leading-tight font-bold tracking-[0.08em] text-transparent drop-shadow-[0_4px_3px_rgba(0,0,0,0.8)] sm:text-7xl md:text-8xl lg:text-9xl [@media(max-height:850px)]:text-6xl">
               麻雀レベル++
             </h1>
 
-            <p className="mt-4 text-base font-semibold tracking-[0.28em] text-[#e8c58d] drop-shadow-[0_2px_2px_rgba(0,0,0,0.9)] sm:text-xl md:text-2xl">
+            <p className="mt-4 text-base font-semibold tracking-[0.28em] text-[#e8c58d] drop-shadow-[0_2px_2px_rgba(0,0,0,0.9)] sm:text-xl md:text-2xl [@media(max-height:850px)]:mt-2 [@media(max-height:850px)]:text-lg">
               点数計算を、速く、正確に
             </p>
 
             <div
               aria-hidden="true"
-              className="my-6 flex w-full max-w-xl items-center gap-4 text-[#c99b55]"
+              className="my-6 flex w-full max-w-xl items-center gap-4 text-[#c99b55] [@media(max-height:850px)]:my-3"
             >
               <span className="h-px flex-1 bg-current/60" />
               <span className="size-3 rotate-45 border border-current" />

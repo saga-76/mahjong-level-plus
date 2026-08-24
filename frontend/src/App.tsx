@@ -57,6 +57,7 @@ function App() {
               result={quizResult}
               onReview={() => navigate('/review')}
               onRetry={handleRetry}
+              onTop={handleQuit}
             />
           )
         }
@@ -70,6 +71,8 @@ function App() {
             <AnswerReviewPageContainer
               result={quizResult}
               onBack={() => navigate('/result')}
+              onRetry={handleRetry}
+              onTop={handleQuit}
             />
           )
         }

@@ -4,11 +4,15 @@ import { AnswerReviewPage } from '../components/AnswerReviewPage'
 type AnswerReviewPageContainerProps = {
   readonly result: QuizResult
   readonly onBack: () => void
+  readonly onRetry: () => void
+  readonly onTop: () => void
 }
 
 export function AnswerReviewPageContainer({
   result,
   onBack,
+  onRetry,
+  onTop,
 }: AnswerReviewPageContainerProps) {
   const answerByQuestionId = new Map(
     result.answers.map((answer) => [answer.questionId, answer]),
@@ -25,6 +29,11 @@ export function AnswerReviewPageContainer({
   })
 
   return (
-    <AnswerReviewPage reviewedQuestions={reviewedQuestions} onBack={onBack} />
+    <AnswerReviewPage
+      reviewedQuestions={reviewedQuestions}
+      onBack={onBack}
+      onRetry={onRetry}
+      onTop={onTop}
+    />
   )
 }
