@@ -34,6 +34,8 @@ export function QuizPageContainer({
       }),
       totalQuestions: quizQuestions.length,
       elapsedTimeMs,
+      questions: quizQuestions,
+      answers,
     }),
     [answers, elapsedTimeMs, quizQuestions],
   )

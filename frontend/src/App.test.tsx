@@ -62,15 +62,33 @@ describe('App routing', () => {
     expect(screen.getByText('スコア')).toBeInTheDocument()
     expect(screen.getByText('正解数')).toBeInTheDocument()
     expect(screen.getByText('回答時間')).toBeInTheDocument()
+
+    await user.click(screen.getByRole('button', { name: '10問の解説を見る' }))
+
+    expect(
+      await screen.findByRole('heading', { name: '10問の解説' }),
+    ).toBeInTheDocument()
+    expect(screen.getAllByRole('article')).toHaveLength(10)
+
+    await user.click(screen.getAllByRole('button', { name: '結果に戻る' })[0])
+
+    expect(
+      await screen.findByRole('heading', { name: '結果' }),
+    ).toBeInTheDocument()
   })
 
-  it('結果データなしで/resultを開くとトップ画面へ戻る', () => {
-    render(
-      <MemoryRouter initialEntries={['/result']}>
-        <App />
-      </MemoryRouter>,
-    )
+  it.each(['/result', '/review'])(
+    '結果データなしで%sを開くとトップ画面へ戻る',
+    (path) => {
+      render(
+        <MemoryRouter initialEntries={[path]}>
+          <App />
+        </MemoryRouter>,
+      )
 
-    expect(screen.getByRole('button', { name: 'スタート' })).toBeInTheDocument()
-  })
+      expect(
+        screen.getByRole('button', { name: 'スタート' }),
+      ).toBeInTheDocument()
+    },
+  )
 })

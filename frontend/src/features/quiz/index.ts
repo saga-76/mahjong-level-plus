@@ -26,6 +26,7 @@ export type {
   QuestionPattern,
   TileCode,
   WinType,
+  Yaku,
 } from './types/question'
 
 export type {

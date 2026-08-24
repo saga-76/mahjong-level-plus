@@ -23,6 +23,17 @@ describe('questions', () => {
     }
   })
 
+  it('役・翻・符・ドラ・解説を管理できる', () => {
+    for (const question of questions) {
+      const yakuHan = question.yaku.reduce((total, yaku) => total + yaku.han, 0)
+
+      expect(question.yaku.length).toBeGreaterThan(0)
+      expect(yakuHan + question.dora).toBe(question.han)
+      expect(question.dora).toBeGreaterThanOrEqual(0)
+      expect(question.explanation.length).toBeGreaterThan(0)
+    }
+  })
+
   it('パターンAとパターンBを識別できる', () => {
     const patternAQuestion = questions.find(
       (question) => question.pattern === 'A',

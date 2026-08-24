@@ -1,7 +1,10 @@
 import { useCallback, useState } from 'react'
 import { Navigate, Route, Routes, useNavigate } from 'react-router-dom'
 import { QuizPageContainer, type QuizResult } from './features/quiz'
-import { ResultPageContainer } from './features/result'
+import {
+  AnswerReviewPageContainer,
+  ResultPageContainer,
+} from './features/result'
 import { TopPageContainer } from './features/top/containers/TopPageContainer'
 
 function App() {
@@ -41,7 +44,23 @@ function App() {
           quizResult === null ? (
             <Navigate to="/" replace />
           ) : (
-            <ResultPageContainer result={quizResult} />
+            <ResultPageContainer
+              result={quizResult}
+              onReview={() => navigate('/review')}
+            />
+          )
+        }
+      />
+      <Route
+        path="/review"
+        element={
+          quizResult === null ? (
+            <Navigate to="/" replace />
+          ) : (
+            <AnswerReviewPageContainer
+              result={quizResult}
+              onBack={() => navigate('/result')}
+            />
           )
         }
       />
