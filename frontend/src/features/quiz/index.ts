@@ -1,6 +1,7 @@
 export { questions } from './data/question'
 export { rankCriteria } from './data/rankCriteria'
 export { AnswerChoices } from './components/AnswerChoices'
+export { DoraTiles } from './components/DoraTiles'
 export { MahjongTile } from './components/MahjongTile'
 export { WinningHand } from './components/WinningHand'
 export { QuizPageContainer } from './containers/QuizPageContainer'
@@ -15,6 +16,7 @@ export { determineRank } from './logic/determineRank'
 export { QUESTIONS_PER_PATTERN, selectQuestions } from './logic/selectQuestions'
 
 export type {
+  DoraTileCodes,
   Meld,
   MeldType,
   PatternAQuestion,

@@ -7,6 +7,7 @@ type RedFiveTile = `0${Suit}`
 type HonorTile = `${HonorNumber}z`
 
 export type TileCode = StandardSuitTile | RedFiveTile | HonorTile
+export type DoraTileCodes = readonly TileCode[]
 
 export type MeldType = 'chi' | 'pon' | 'kan'
 
@@ -52,6 +53,7 @@ type BaseQuestion = {
   readonly yaku: readonly Yaku[]
   readonly han: number
   readonly dora: number
+  readonly doraTiles: DoraTileCodes
   readonly explanation: string
 }
 

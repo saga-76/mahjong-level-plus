@@ -35,8 +35,9 @@ function createQuestion(
     choices: ['3,900点', '5,200点', '8,000点'],
     correctAnswer: '5,200点',
     yaku: [{ name: 'リーチ', han: 1 }],
-    han: 3,
-    dora: 2,
+    han: 1,
+    dora: 0,
+    doraTiles: [],
     explanation: 'テスト用の問題です。',
   } as const
 

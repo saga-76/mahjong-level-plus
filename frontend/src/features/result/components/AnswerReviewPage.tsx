@@ -1,4 +1,4 @@
-import { WinningHand } from '../../quiz'
+import { DoraTiles, WinningHand } from '../../quiz'
 import type { ReviewedQuestion } from '../types/review'
 
 type AnswerReviewPageProps = {
@@ -74,7 +74,7 @@ export function AnswerReviewPage({
                       <WinningHand hand={question.hand} />
                     </div>
 
-                    <dl className="mt-6 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
+                    <dl className="mt-6 grid gap-3 sm:grid-cols-2 lg:grid-cols-5">
                       <div className="rounded border border-[#c6a160]/50 bg-black/20 p-4">
                         <dt className="text-sm text-[#d4ae6b]">役</dt>
                         <dd className="mt-1">{yakuLabel}</dd>
@@ -92,7 +92,13 @@ export function AnswerReviewPage({
                         </dd>
                       </div>
                       <div className="rounded border border-[#c6a160]/50 bg-black/20 p-4">
-                        <dt className="text-sm text-[#d4ae6b]">ドラ</dt>
+                        <dt className="text-sm text-[#d4ae6b]">ドラ牌</dt>
+                        <dd className="mt-2">
+                          <DoraTiles tiles={question.doraTiles} compact />
+                        </dd>
+                      </div>
+                      <div className="rounded border border-[#c6a160]/50 bg-black/20 p-4">
+                        <dt className="text-sm text-[#d4ae6b]">ドラ枚数</dt>
                         <dd className="mt-1">{question.dora}枚</dd>
                       </div>
                     </dl>
