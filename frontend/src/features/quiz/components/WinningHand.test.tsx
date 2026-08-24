@@ -6,7 +6,7 @@ import { WinningHand } from './WinningHand'
 
 describe('WinningHand', () => {
   it('手牌とアガリ牌を分けて表示する', () => {
-    render(<WinningHand hand={questions[0].hand} />)
+    render(<WinningHand hand={questions[2].hand} />)
 
     const concealedTiles = screen.getByRole('group', { name: '手牌' })
     const winningTile = screen.getByRole('group', { name: 'アガリ牌' })
@@ -16,7 +16,7 @@ describe('WinningHand', () => {
   })
 
   it('副露の種類と牌を表示する', () => {
-    render(<WinningHand hand={questions[5].hand} />)
+    render(<WinningHand hand={questions[7].hand} />)
 
     const meld = screen.getByRole('group', { name: '副露（ポン）' })
 

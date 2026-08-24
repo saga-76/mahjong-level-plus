@@ -1,11 +1,11 @@
 import { describe, expect, it, vi } from 'vitest'
 
-import { render, screen } from '../../../test/test-utils'
+import { render, screen, within } from '../../../test/test-utils'
 import { questions } from '../data/question'
 import { QuizPage } from './QuizPage'
 
 describe('QuizPage', () => {
-  it('現在の問題番号・条件・アガリ形・3つの選択肢を表示する', () => {
+  it('現在の問題番号・条件・ドラ牌・アガリ形・3つの選択肢を表示する', () => {
     render(
       <QuizPage
         question={questions[0]}
@@ -23,8 +23,27 @@ describe('QuizPage', () => {
     expect(screen.getByText('子')).toBeInTheDocument()
     expect(screen.getByText('ロン')).toBeInTheDocument()
     expect(screen.getByText('5翻')).toBeInTheDocument()
+    expect(
+      within(screen.getByRole('group', { name: 'ドラ牌' })).getAllByRole('img'),
+    ).toHaveLength(1)
     expect(screen.getAllByRole('button')).toHaveLength(4)
     expect(screen.getByRole('button', { name: 'やめる' })).toBeInTheDocument()
+  })
+
+  it('ドラを含まない問題では「なし」と表示する', () => {
+    render(
+      <QuizPage
+        question={questions[1]}
+        currentQuestionNumber={2}
+        totalQuestions={10}
+        onAnswer={vi.fn()}
+        onQuit={vi.fn()}
+      />,
+    )
+
+    expect(
+      within(screen.getByRole('group', { name: 'ドラ牌' })).getByText('なし'),
+    ).toBeInTheDocument()
   })
 
   it('選択した回答をonAnswerで通知する', async () => {
@@ -50,8 +69,8 @@ describe('QuizPage', () => {
   it('問題に副露がある場合は副露牌を表示する', () => {
     render(
       <QuizPage
-        question={questions[5]}
-        currentQuestionNumber={6}
+        question={questions[7]}
+        currentQuestionNumber={8}
         totalQuestions={10}
         onAnswer={vi.fn()}
         onQuit={vi.fn()}

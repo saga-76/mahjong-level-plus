@@ -1,5 +1,6 @@
 import type { Question } from '../types/question'
 import { AnswerChoices } from './AnswerChoices'
+import { DoraTiles } from './DoraTiles'
 import { WinningHand } from './WinningHand'
 
 type QuizPageProps = {
@@ -74,6 +75,13 @@ export function QuizPage({
                 <dd>{question.han}翻</dd>
               </div>
             </dl>
+
+            <div className="mt-5 border-t border-[#c6a160]/40 pt-4">
+              <p className="mb-3 text-center text-sm font-semibold text-[#d4ae6b]">
+                ドラ牌
+              </p>
+              <DoraTiles tiles={question.doraTiles} />
+            </div>
           </section>
 
           <section

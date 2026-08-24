@@ -1,6 +1,10 @@
 import { describe, expect, it } from 'vitest'
 
-import { questions, selectQuestions } from '..'
+import { questions, selectQuestions, type TileCode } from '..'
+
+function normalizeRedFive(tile: TileCode): TileCode {
+  return tile.startsWith('0') ? (`5${tile.at(-1)}` as TileCode) : tile
+}
 
 describe('questions', () => {
   it('問題データを読み込める', () => {
@@ -32,6 +36,56 @@ describe('questions', () => {
       expect(question.dora).toBeGreaterThanOrEqual(0)
       expect(question.explanation.length).toBeGreaterThan(0)
     }
+  })
+
+  it('さまざまな役を問題データに含めている', () => {
+    const yakuNames = questions.flatMap((question) =>
+      question.yaku.map((yaku) => yaku.name),
+    )
+
+    expect(yakuNames).toEqual(
+      expect.arrayContaining([
+        '断么九',
+        '平和',
+        '一盃口',
+        '混一色',
+        '清一色',
+        '七対子',
+        '対々和',
+        '門前清自摸和',
+      ]),
+    )
+  })
+
+  it('ドラ牌から手牌のドラ枚数を確認できる', () => {
+    for (const question of questions) {
+      const handTiles = [
+        ...question.hand.concealedTiles,
+        question.hand.winningTile,
+        ...question.hand.melds.flatMap((meld) => meld.tiles),
+      ]
+      const redDoraCount = handTiles.filter((tile) =>
+        tile.startsWith('0'),
+      ).length
+      const normalDoraCount = question.doraTiles.reduce((total, doraTile) => {
+        const matchingTileCount = handTiles.filter(
+          (tile) => normalizeRedFive(tile) === normalizeRedFive(doraTile),
+        ).length
+
+        return total + matchingTileCount
+      }, 0)
+
+      expect(question.dora).toBeLessThanOrEqual(1)
+      expect(question.doraTiles).toHaveLength(question.dora)
+      expect(new Set(question.doraTiles).size).toBe(question.doraTiles.length)
+      expect(redDoraCount + normalDoraCount).toBe(question.dora)
+    }
+  })
+
+  it('ドラなしを基本とし、ドラを含む問題も1枚までにする', () => {
+    expect(questions.filter((question) => question.dora === 0)).toHaveLength(8)
+    expect(questions.filter((question) => question.dora === 1)).toHaveLength(2)
+    expect(questions.every((question) => question.dora <= 1)).toBe(true)
   })
 
   it('パターンAとパターンBを識別できる', () => {

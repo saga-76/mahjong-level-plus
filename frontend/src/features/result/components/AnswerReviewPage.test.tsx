@@ -16,7 +16,7 @@ const reviewedQuestions: ReviewedQuestion[] = questions.map(
 )
 
 describe('AnswerReviewPage', () => {
-  it('10問分の正誤・回答・役・翻・符・ドラ・解説を表示する', () => {
+  it('10問分の正誤・回答・役・翻・符・ドラ牌・ドラ枚数・解説を表示する', () => {
     render(
       <AnswerReviewPage
         reviewedQuestions={reviewedQuestions}
@@ -37,15 +37,30 @@ describe('AnswerReviewPage', () => {
     expect(
       within(firstQuestion).getAllByText(questions[0].correctAnswer),
     ).toHaveLength(2)
-    expect(within(firstQuestion).getByText('リーチ（1翻）')).toBeInTheDocument()
+    expect(within(firstQuestion).getByText(/断么九（1翻）/)).toBeInTheDocument()
     expect(within(firstQuestion).getByText('5翻')).toBeInTheDocument()
     expect(
       within(firstQuestion).getByText('計算不要（満貫以上）'),
     ).toBeInTheDocument()
-    expect(within(firstQuestion).getByText('4枚')).toBeInTheDocument()
+    expect(
+      within(
+        within(firstQuestion).getByRole('group', { name: 'ドラ牌' }),
+      ).getAllByRole('img'),
+    ).toHaveLength(1)
+    expect(within(firstQuestion).getByText('ドラ枚数')).toBeInTheDocument()
+    expect(within(firstQuestion).getByText('1枚')).toBeInTheDocument()
     expect(
       within(firstQuestion).getByText(questions[0].explanation),
     ).toBeInTheDocument()
+
+    const secondQuestion = screen.getAllByRole('article')[1]
+
+    expect(
+      within(
+        within(secondQuestion).getByRole('group', { name: 'ドラ牌' }),
+      ).getByText('なし'),
+    ).toBeInTheDocument()
+    expect(within(secondQuestion).getByText('0枚')).toBeInTheDocument()
   })
 
   it('結果に戻る操作を通知する', async () => {
