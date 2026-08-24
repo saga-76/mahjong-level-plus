@@ -4,6 +4,7 @@ type ResultPageProps = {
   readonly result: QuizResult
   readonly rankCriterion: RankCriterion
   readonly onReview: () => void
+  readonly onRetry: () => void
 }
 
 function formatElapsedTime(elapsedTimeMs: number): string {
@@ -14,6 +15,7 @@ export function ResultPage({
   result,
   rankCriterion,
   onReview,
+  onRetry,
 }: ResultPageProps) {
   return (
     <main className="relative flex min-h-screen items-center justify-center overflow-hidden bg-[#031a14] px-4 py-8 text-[#f1d49e] sm:px-6">
@@ -62,13 +64,22 @@ export function ResultPage({
           </div>
         </div>
 
-        <button
-          type="button"
-          className="mt-8 min-w-64 cursor-pointer rounded border-2 border-[#c6a160] bg-[#f2e5c8] px-8 py-4 text-lg font-semibold tracking-[0.08em] text-[#063b2b] transition hover:bg-[#f8efd9] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#f1d49e]"
-          onClick={onReview}
-        >
-          10問の解説を見る
-        </button>
+        <div className="mt-8 flex flex-wrap justify-center gap-4">
+          <button
+            type="button"
+            className="min-w-64 cursor-pointer rounded border-2 border-[#c6a160] bg-[#123727] px-8 py-4 text-lg font-semibold tracking-[0.08em] text-[#f1d49e] transition hover:bg-[#1b4b36] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#f1d49e]"
+            onClick={onRetry}
+          >
+            もう一度挑戦
+          </button>
+          <button
+            type="button"
+            className="min-w-64 cursor-pointer rounded border-2 border-[#c6a160] bg-[#f2e5c8] px-8 py-4 text-lg font-semibold tracking-[0.08em] text-[#063b2b] transition hover:bg-[#f8efd9] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#f1d49e]"
+            onClick={onReview}
+          >
+            10問の解説を見る
+          </button>
+        </div>
       </section>
     </main>
   )

@@ -10,20 +10,29 @@ import { TopPageContainer } from './features/top/containers/TopPageContainer'
 function App() {
   const navigate = useNavigate()
   const [quizResult, setQuizResult] = useState<QuizResult | null>(null)
+  const [isRetrying, setIsRetrying] = useState(false)
 
   const handleStart = useCallback(() => {
     setQuizResult(null)
+    setIsRetrying(false)
     navigate('/quiz')
   }, [navigate])
 
   const handleQuit = useCallback(() => {
     setQuizResult(null)
+    setIsRetrying(false)
     navigate('/')
   }, [navigate])
+
+  const handleRetry = useCallback(() => {
+    setQuizResult(null)
+    setIsRetrying(true)
+  }, [])
 
   const handleComplete = useCallback(
     (result: QuizResult) => {
       setQuizResult(result)
+      setIsRetrying(false)
       navigate('/result')
     },
     [navigate],
@@ -42,11 +51,12 @@ function App() {
         path="/result"
         element={
           quizResult === null ? (
-            <Navigate to="/" replace />
+            <Navigate to={isRetrying ? '/quiz' : '/'} replace />
           ) : (
             <ResultPageContainer
               result={quizResult}
               onReview={() => navigate('/review')}
+              onRetry={handleRetry}
             />
           )
         }
@@ -55,7 +65,7 @@ function App() {
         path="/review"
         element={
           quizResult === null ? (
-            <Navigate to="/" replace />
+            <Navigate to={isRetrying ? '/quiz' : '/'} replace />
           ) : (
             <AnswerReviewPageContainer
               result={quizResult}
