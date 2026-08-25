@@ -119,6 +119,16 @@ MVPでは、10問の出題から結果・解説の確認、再挑戦までの体
 | コード品質     | ESLint + Prettier              |
 | デプロイ       | Vercel                         |
 
+## テストカバレッジ
+
+Docker上で次のコマンドを実行すると、テストとカバレッジ測定を実行できます。
+
+```bash
+docker compose exec frontend npm run test:coverage
+```
+
+測定結果はターミナルに表示され、HTMLレポートは`frontend/coverage/index.html`に生成されます。`coverage`ディレクトリはGitの管理対象外です。
+
 ## 今後追加したい機能
 
 - 難易度の選択
