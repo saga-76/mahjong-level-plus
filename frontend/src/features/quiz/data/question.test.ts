@@ -11,6 +11,48 @@ describe('questions', () => {
     expect(questions).toHaveLength(10)
   })
 
+  it('すべての問題に必須項目が正しく登録されている', () => {
+    const questionIds = questions.map((question) => question.id)
+
+    expect(new Set(questionIds).size).toBe(questions.length)
+
+    for (const question of questions) {
+      expect(question.id.trim()).not.toBe('')
+      expect(['A', 'B']).toContain(question.pattern)
+      expect(question.hand.concealedTiles.length).toBeGreaterThan(0)
+      expect(question.hand.winningTile).toBeTruthy()
+      expect(['dealer', 'nonDealer']).toContain(question.condition.player)
+      expect(['ron', 'tsumo']).toContain(question.condition.winType)
+      expect(question.choices).toHaveLength(3)
+      expect(new Set(question.choices).size).toBe(3)
+      expect(question.choices.every((choice) => choice.trim().length > 0)).toBe(
+        true,
+      )
+      expect(question.choices).toContain(question.correctAnswer)
+      expect(question.yaku.length).toBeGreaterThan(0)
+      expect(
+        question.yaku.every(
+          (yaku) =>
+            yaku.name.trim().length > 0 &&
+            Number.isInteger(yaku.han) &&
+            yaku.han > 0,
+        ),
+      ).toBe(true)
+      expect(Number.isInteger(question.han)).toBe(true)
+      expect(question.han).toBeGreaterThan(0)
+      expect(Number.isInteger(question.dora)).toBe(true)
+      expect(question.dora).toBeGreaterThanOrEqual(0)
+      expect(question.explanation.trim()).not.toBe('')
+
+      if (question.pattern === 'A') {
+        expect(question.fu).toBeNull()
+      } else {
+        expect(Number.isInteger(question.fu)).toBe(true)
+        expect(question.fu).toBeGreaterThan(0)
+      }
+    }
+  })
+
   it('パターンA・Bが5問ずつ登録されている', () => {
     expect(
       questions.filter((question) => question.pattern === 'A'),
@@ -88,16 +130,14 @@ describe('questions', () => {
     expect(questions.every((question) => question.dora <= 1)).toBe(true)
   })
 
-  it('パターンAとパターンBを識別できる', () => {
-    const patternAQuestion = questions.find(
-      (question) => question.pattern === 'A',
-    )
-    const patternBQuestion = questions.find(
-      (question) => question.pattern === 'B',
-    )
-
-    expect(patternAQuestion?.fu).toBeNull()
-    expect(patternBQuestion?.fu).toBeTypeOf('number')
+  it('パターンAとパターンBを符の有無で識別できる', () => {
+    for (const question of questions) {
+      if (question.pattern === 'A') {
+        expect(question.fu).toBeNull()
+      } else {
+        expect(question.fu).toBeTypeOf('number')
+      }
+    }
   })
 
   it('手牌・アガリ牌・副露を区別して管理できる', () => {
