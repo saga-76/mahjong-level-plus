@@ -26,15 +26,23 @@ describe('calculateScore', () => {
     expect(result.correctScore).toBe(5_000)
   })
 
-  it('正答率と回答時間からタイムボーナスを計算する', () => {
-    const result = calculateScore({
-      questions,
-      answers: createAnswers(10),
-      elapsedTimeMs: 120_000,
-    })
+  it.each([
+    { correctCount: 10, elapsedTimeMs: 60_000, expectedBonus: 500 },
+    { correctCount: 10, elapsedTimeMs: 120_000, expectedBonus: 250 },
+    { correctCount: 5, elapsedTimeMs: 60_000, expectedBonus: 250 },
+    { correctCount: 5, elapsedTimeMs: 120_000, expectedBonus: 125 },
+  ])(
+    '$correctCount問正解・$elapsedTimeMsミリ秒のタイムボーナスを計算する',
+    ({ correctCount, elapsedTimeMs, expectedBonus }) => {
+      const result = calculateScore({
+        questions,
+        answers: createAnswers(correctCount),
+        elapsedTimeMs,
+      })
 
-    expect(result.timeBonus).toBe(250)
-  })
+      expect(result.timeBonus).toBe(expectedBonus)
+    },
+  )
 
   it('正解点とタイムボーナスを合計する', () => {
     const result = calculateScore({
@@ -79,6 +87,20 @@ describe('calculateScore', () => {
     expect(zeroElapsedTime.timeBonus).toBe(0)
     expect(zeroElapsedTime.totalScore).toBe(10_000)
   })
+
+  it.each([-1, Number.NaN, Number.POSITIVE_INFINITY])(
+    '回答時間が不正な値（%s）の場合はタイムボーナスを0にする',
+    (elapsedTimeMs) => {
+      const result = calculateScore({
+        questions,
+        answers: createAnswers(10),
+        elapsedTimeMs,
+      })
+
+      expect(result.timeBonus).toBe(0)
+      expect(result.totalScore).toBe(10_000)
+    },
+  )
 
   it('同じ問題の回答が重複しても正解数を重複集計しない', () => {
     const duplicateAnswers = [

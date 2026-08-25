@@ -97,6 +97,17 @@ describe('selectQuestions', () => {
     expect(selectedQuestionIds).not.toEqual(originalQuestionIds)
   })
 
+  it('選出しても元の問題データと順番を変更しない', () => {
+    const questions = createQuestions()
+    const originalQuestionIds = questions.map((question) => question.id)
+
+    selectQuestions(questions, () => 0)
+
+    expect(questions.map((question) => question.id)).toEqual(
+      originalQuestionIds,
+    )
+  })
+
   it('問題IDが重複している場合はエラーになる', () => {
     const questions = createQuestions(5, 5)
 
