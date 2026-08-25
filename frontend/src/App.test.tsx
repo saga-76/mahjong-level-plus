@@ -27,6 +27,22 @@ describe('App routing', () => {
     expect(screen.getByRole('heading', { name: '1 / 10' })).toBeInTheDocument()
   })
 
+  it('選択肢から回答すると次の問題へ進む', async () => {
+    const { user } = render(
+      <MemoryRouter initialEntries={['/quiz']}>
+        <App />
+      </MemoryRouter>,
+    )
+
+    const answerChoices = screen.getByRole('group', {
+      name: '点数の選択肢',
+    })
+
+    await user.click(answerChoices.querySelector('button')!)
+
+    expect(screen.getByRole('heading', { name: '2 / 10' })).toBeInTheDocument()
+  })
+
   it('問題画面のやめるボタンから確認なしでトップ画面へ戻る', async () => {
     const { user } = render(
       <MemoryRouter initialEntries={['/quiz']}>
@@ -77,7 +93,7 @@ describe('App routing', () => {
     ).toBeInTheDocument()
   })
 
-  it('結果画面から状態を初期化して第1問へ再挑戦できる', async () => {
+  it('再挑戦と途中終了で状態を初期化して第1問から開始できる', async () => {
     const { user } = render(
       <MemoryRouter initialEntries={['/quiz']}>
         <App />
@@ -104,6 +120,22 @@ describe('App routing', () => {
     expect(
       screen.queryByRole('heading', { name: '結果' }),
     ).not.toBeInTheDocument()
+
+    await user.click(
+      screen
+        .getByRole('group', { name: '点数の選択肢' })
+        .querySelector('button')!,
+    )
+
+    expect(screen.getByRole('heading', { name: '2 / 10' })).toBeInTheDocument()
+
+    await user.click(screen.getByRole('button', { name: 'やめる' }))
+
+    expect(screen.getByRole('button', { name: 'スタート' })).toBeInTheDocument()
+
+    await user.click(screen.getByRole('button', { name: 'スタート' }))
+
+    expect(screen.getByRole('heading', { name: '1 / 10' })).toBeInTheDocument()
   })
 
   it('結果画面からトップ画面へ戻れる', async () => {
