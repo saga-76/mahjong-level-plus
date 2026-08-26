@@ -33,10 +33,13 @@ export type QuestionPattern = 'A' | 'B'
 
 export type PlayerType = 'dealer' | 'nonDealer'
 export type WinType = 'ron' | 'tsumo'
+export type Wind = 'east' | 'south' | 'west' | 'north'
 
 export type QuestionCondition = {
   readonly player: PlayerType
   readonly winType: WinType
+  readonly roundWind: Wind
+  readonly seatWind: Wind
 }
 
 export type Yaku = {

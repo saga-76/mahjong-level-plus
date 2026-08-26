@@ -5,7 +5,7 @@ import { questions } from '../data/question'
 import { QuizPage } from './QuizPage'
 
 describe('QuizPage', () => {
-  it('現在の問題番号・条件・ドラ牌・アガリ形・3つの選択肢を表示する', () => {
+  it('現在の問題番号・場風・自家・アガリ方・ドラ・アガリ役・3つの選択肢を表示する', () => {
     render(
       <QuizPage
         question={questions[0]}
@@ -20,9 +20,18 @@ describe('QuizPage', () => {
     expect(
       screen.getByRole('progressbar', { name: '問題の進捗' }),
     ).toHaveAttribute('value', '1')
-    expect(screen.getByText('子')).toBeInTheDocument()
+    expect(
+      screen.queryByRole('heading', { name: '問題の条件' }),
+    ).not.toBeInTheDocument()
+    expect(screen.getByText('場風')).toBeInTheDocument()
+    expect(screen.getByText('東')).toBeInTheDocument()
+    expect(screen.getByText('自家')).toBeInTheDocument()
+    expect(screen.getByText('南家')).toBeInTheDocument()
     expect(screen.getByText('ロン')).toBeInTheDocument()
-    expect(screen.getByText('5翻')).toBeInTheDocument()
+    expect(screen.getByText('ドラ')).toBeInTheDocument()
+    expect(screen.queryByText('家')).not.toBeInTheDocument()
+    expect(screen.queryByText('翻数')).not.toBeInTheDocument()
+    expect(screen.queryByText('5翻')).not.toBeInTheDocument()
     expect(
       within(screen.getByRole('group', { name: 'ドラ牌' })).getAllByRole('img'),
     ).toHaveLength(1)
@@ -77,9 +86,7 @@ describe('QuizPage', () => {
       />,
     )
 
-    expect(
-      screen.getByRole('group', { name: '副露（ポン）' }),
-    ).toBeInTheDocument()
+    expect(screen.getByRole('group', { name: 'ポン' })).toBeInTheDocument()
   })
 
   it('やめるボタンからonQuitを通知する', async () => {

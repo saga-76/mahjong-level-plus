@@ -23,6 +23,15 @@ describe('questions', () => {
       expect(question.hand.winningTile).toBeTruthy()
       expect(['dealer', 'nonDealer']).toContain(question.condition.player)
       expect(['ron', 'tsumo']).toContain(question.condition.winType)
+      expect(['east', 'south', 'west', 'north']).toContain(
+        question.condition.roundWind,
+      )
+      expect(['east', 'south', 'west', 'north']).toContain(
+        question.condition.seatWind,
+      )
+      expect(question.condition.player === 'dealer').toBe(
+        question.condition.seatWind === 'east',
+      )
       expect(question.choices).toHaveLength(3)
       expect(new Set(question.choices).size).toBe(3)
       expect(question.choices.every((choice) => choice.trim().length > 0)).toBe(

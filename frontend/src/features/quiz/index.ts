@@ -27,6 +27,7 @@ export type {
   QuestionHand,
   QuestionPattern,
   TileCode,
+  Wind,
   WinType,
   Yaku,
 } from './types/question'

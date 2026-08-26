@@ -12,12 +12,12 @@ export function MahjongTileDecoration() {
   return (
     <div
       aria-hidden="true"
-      className="pointer-events-none absolute right-36 bottom-96 z-10 hidden origin-bottom-right -rotate-10 items-end opacity-80 md:flex"
+      className="pointer-events-none absolute -right-8 bottom-14 z-10 hidden origin-bottom-right -rotate-10 items-end opacity-75 xl:flex"
     >
       {tileNames.map((tileName, index) => (
         <div
           key={tileName}
-          className="relative -ml-3 aspect-[3/4] w-[clamp(6rem,7vw,9rem)] overflow-hidden rounded-[10%] border border-[#b38a4f] bg-[#f2e5c8] p-0.5 shadow-[0_4px_8px_rgba(0,0,0,0.55)] first:ml-0"
+          className="relative -ml-3 aspect-[3/4] w-[clamp(4.5rem,5vw,7rem)] overflow-hidden rounded-[10%] border border-[#b38a4f] bg-[#f2e5c8] p-0.5 shadow-[0_4px_8px_rgba(0,0,0,0.55)] first:ml-0"
           style={{ transform: `translateY(${index * -3}px)` }}
         >
           <img

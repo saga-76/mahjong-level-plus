@@ -31,6 +31,8 @@ function createQuestion(
     condition: {
       player: 'nonDealer',
       winType: 'ron',
+      roundWind: 'east',
+      seatWind: 'south',
     },
     choices: ['3,900点', '5,200点', '8,000点'],
     correctAnswer: '5,200点',

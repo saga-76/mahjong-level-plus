@@ -10,7 +10,7 @@ const result: QuizResult = {
   timeBonus: 700,
   totalScore: 1_500,
   totalQuestions: 10,
-  elapsedTimeMs: 45_678,
+  elapsedTimeMs: 123_200,
   questions: [],
   answers: [],
 }
@@ -40,12 +40,13 @@ describe('ResultPage', () => {
 
     expect(screen.getByRole('heading', { name: '結果' })).toBeInTheDocument()
     expect(screen.getByLabelText('ランク')).toHaveTextContent('S')
+    expect(screen.getByLabelText('ランク')).toHaveClass('text-[#d946ef]')
     expect(screen.getByText('Sランクの習熟度説明です。')).toBeInTheDocument()
     expect(screen.getByText('1,500点')).toBeInTheDocument()
     expect(screen.getByText('8 / 10問')).toBeInTheDocument()
-    expect(screen.getByText('45.678秒')).toBeInTheDocument()
+    expect(screen.getByText('123秒200')).toBeInTheDocument()
 
-    await user.click(screen.getByRole('button', { name: '10問の解説を見る' }))
+    await user.click(screen.getByRole('button', { name: '解説を見る' }))
 
     expect(onReview).toHaveBeenCalledOnce()
   })
