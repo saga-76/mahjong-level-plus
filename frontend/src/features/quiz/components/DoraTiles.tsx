@@ -7,7 +7,9 @@ type DoraTilesProps = {
 }
 
 export function DoraTiles({ tiles, compact = false }: DoraTilesProps) {
-  const emptyStateSizeClass = compact ? 'w-10' : 'w-10 sm:w-12 md:w-14'
+  const emptyStateSizeClass = compact
+    ? 'w-8 sm:w-10'
+    : 'w-8 sm:w-10 md:w-12 lg:w-14'
 
   return (
     <div

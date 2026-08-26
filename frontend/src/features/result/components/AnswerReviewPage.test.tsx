@@ -39,7 +39,14 @@ describe('AnswerReviewPage', () => {
     expect(
       within(firstQuestion).getAllByText(questions[0].correctAnswer),
     ).toHaveLength(2)
-    expect(within(firstQuestion).getByText(/断么九（1翻）/)).toBeInTheDocument()
+    expect(
+      within(firstQuestion).getByText(
+        '断么九（タンヤオ）1翻、平和（ピンフ）1翻、一盃口（イーペーコー）1翻、リーチ1翻',
+      ),
+    ).toBeInTheDocument()
+    expect(screen.getAllByText(/門前清自摸和（メンゼンツモ）1翻/)).toHaveLength(
+      2,
+    )
     expect(within(firstQuestion).getByText('5翻')).toBeInTheDocument()
     expect(
       within(firstQuestion).getByText('計算不要（満貫以上）'),

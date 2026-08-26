@@ -13,10 +13,12 @@ type WinningHandProps = {
 
 export function WinningHand({ hand }: WinningHandProps) {
   return (
-    <section aria-label="アガリ形" className="overflow-x-auto pb-2">
-      <div className="flex min-w-max items-end gap-4">
+    <section
+      aria-label="アガリ役"
+      className="touch-pan-x overscroll-x-contain overflow-x-auto pb-2"
+    >
+      <div className="mx-auto flex w-max min-w-max items-end gap-2 sm:gap-4">
         <div>
-          <p className="mb-1 text-xs font-semibold text-[#f1d49e]">手牌</p>
           <div
             role="group"
             aria-label="手牌"
@@ -42,11 +44,11 @@ export function WinningHand({ hand }: WinningHandProps) {
         {hand.melds.map((meld, meldIndex) => (
           <div key={`${meld.type}-${meldIndex}`}>
             <p className="mb-1 text-xs font-semibold text-[#f1d49e]">
-              副露（{meldLabels[meld.type]}）
+              {meldLabels[meld.type]}
             </p>
             <div
               role="group"
-              aria-label={`副露（${meldLabels[meld.type]}）`}
+              aria-label={meldLabels[meld.type]}
               className="flex items-end gap-0.5 rounded bg-black/20 p-1"
             >
               {meld.tiles.map((tile, tileIndex) => (
@@ -60,6 +62,9 @@ export function WinningHand({ hand }: WinningHandProps) {
           </div>
         ))}
       </div>
+      <p className="mt-2 text-center text-xs text-[#d4ae6b] sm:hidden">
+        牌が見切れる場合は横にスクロールできます
+      </p>
     </section>
   )
 }

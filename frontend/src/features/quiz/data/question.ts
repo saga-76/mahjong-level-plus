@@ -26,6 +26,8 @@ export const questions = [
     condition: {
       player: 'nonDealer',
       winType: 'ron',
+      roundWind: 'east',
+      seatWind: 'south',
     },
     choices: ['3,900点', '5,200点', '8,000点'],
     correctAnswer: '8,000点',
@@ -67,6 +69,8 @@ export const questions = [
     condition: {
       player: 'dealer',
       winType: 'ron',
+      roundWind: 'east',
+      seatWind: 'east',
     },
     choices: ['8,000点', '12,000点', '18,000点'],
     correctAnswer: '12,000点',
@@ -106,6 +110,8 @@ export const questions = [
     condition: {
       player: 'nonDealer',
       winType: 'ron',
+      roundWind: 'south',
+      seatWind: 'west',
     },
     choices: ['8,000点', '12,000点', '16,000点'],
     correctAnswer: '12,000点',
@@ -114,7 +120,8 @@ export const questions = [
     fu: null,
     dora: 0,
     doraTiles: [],
-    explanation: '清一色6翻です。子のロン和了は跳満の12,000点になります。',
+    explanation:
+      '清一色（チンイツ）6翻です。子のロン和了は跳満の12,000点になります。',
   },
   {
     id: 'question-004',
@@ -141,6 +148,8 @@ export const questions = [
     condition: {
       player: 'dealer',
       winType: 'ron',
+      roundWind: 'south',
+      seatWind: 'east',
     },
     choices: ['12,000点', '18,000点', '24,000点'],
     correctAnswer: '18,000点',
@@ -149,7 +158,8 @@ export const questions = [
     fu: null,
     dora: 0,
     doraTiles: [],
-    explanation: '清一色6翻です。親のロン和了は跳満の18,000点になります。',
+    explanation:
+      '清一色（チンイツ）6翻です。親のロン和了は跳満の18,000点になります。',
   },
   {
     id: 'question-005',
@@ -176,6 +186,8 @@ export const questions = [
     condition: {
       player: 'nonDealer',
       winType: 'ron',
+      roundWind: 'east',
+      seatWind: 'north',
     },
     choices: ['12,000点', '16,000点', '24,000点'],
     correctAnswer: '16,000点',
@@ -189,7 +201,7 @@ export const questions = [
     dora: 0,
     doraTiles: [],
     explanation:
-      '清一色6翻、一盃口1翻、リーチ1翻で計8翻です。子のロン和了は倍満の16,000点になります。',
+      '清一色（チンイツ）6翻、一盃口（イーペーコー）1翻、リーチ1翻で計8翻です。子のロン和了は倍満の16,000点になります。',
   },
   {
     id: 'question-006',
@@ -216,6 +228,8 @@ export const questions = [
     condition: {
       player: 'nonDealer',
       winType: 'tsumo',
+      roundWind: 'south',
+      seatWind: 'south',
     },
     choices: ['500点 / 1,000点', '700点 / 1,300点', '1,000点 / 2,000点'],
     correctAnswer: '700点 / 1,300点',
@@ -229,7 +243,7 @@ export const questions = [
     dora: 0,
     doraTiles: [],
     explanation:
-      '断么九（タンヤオ）1翻、平和（ピンフ）1翻、門前清自摸和（ツモ）1翻で計3翻です。子のツモ和了で20符3翻のため、親が1,300点、子が700点を支払います。',
+      '断么九（タンヤオ）1翻、平和（ピンフ）1翻、門前清自摸和（メンゼンツモ）1翻で計3翻です。子のツモ和了で20符3翻のため、親が1,300点、子が700点を支払います。',
   },
   {
     id: 'question-007',
@@ -256,6 +270,8 @@ export const questions = [
     condition: {
       player: 'nonDealer',
       winType: 'ron',
+      roundWind: 'east',
+      seatWind: 'west',
     },
     choices: ['2,600点', '3,200点', '3,900点'],
     correctAnswer: '3,200点',
@@ -297,6 +313,8 @@ export const questions = [
     condition: {
       player: 'nonDealer',
       winType: 'ron',
+      roundWind: 'south',
+      seatWind: 'north',
     },
     choices: ['3,900点', '5,200点', '7,700点'],
     correctAnswer: '5,200点',
@@ -309,7 +327,7 @@ export const questions = [
     dora: 0,
     doraTiles: [],
     explanation:
-      '対々和（トイトイ）2翻と役牌 中1翻で計3翻です。子のロン和了で40符3翻のため、5,200点になります。',
+      '対々和（トイトイ）2翻と役牌 中（ヤクハイ チュン）1翻で計3翻です。子のロン和了で40符3翻のため、5,200点になります。',
   },
   {
     id: 'question-009',
@@ -336,6 +354,8 @@ export const questions = [
     condition: {
       player: 'dealer',
       winType: 'ron',
+      roundWind: 'east',
+      seatWind: 'east',
     },
     choices: ['3,900点', '5,800点', '7,700点'],
     correctAnswer: '5,800点',
@@ -376,6 +396,8 @@ export const questions = [
     condition: {
       player: 'nonDealer',
       winType: 'ron',
+      roundWind: 'east',
+      seatWind: 'west',
     },
     choices: ['2,600点', '3,200点', '3,900点'],
     correctAnswer: '3,200点',

@@ -121,7 +121,7 @@ describe('App routing', () => {
     expect(screen.getByText('正解数')).toBeInTheDocument()
     expect(screen.getByText('回答時間')).toBeInTheDocument()
 
-    await user.click(screen.getByRole('button', { name: '10問の解説を見る' }))
+    await user.click(screen.getByRole('button', { name: '解説を見る' }))
 
     expect(
       await screen.findByRole('heading', { name: '10問の解説' }),

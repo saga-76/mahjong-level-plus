@@ -11,6 +11,7 @@ describe('WinningHand', () => {
     const concealedTiles = screen.getByRole('group', { name: '手牌' })
     const winningTile = screen.getByRole('group', { name: 'アガリ牌' })
 
+    expect(screen.queryByText('手牌')).not.toBeInTheDocument()
     expect(within(concealedTiles).getAllByRole('img')).toHaveLength(13)
     expect(within(winningTile).getAllByRole('img')).toHaveLength(1)
   })
@@ -18,9 +19,9 @@ describe('WinningHand', () => {
   it('副露の種類と牌を表示する', () => {
     render(<WinningHand hand={questions[7].hand} />)
 
-    const meld = screen.getByRole('group', { name: '副露（ポン）' })
+    const meld = screen.getByRole('group', { name: 'ポン' })
 
     expect(within(meld).getAllByRole('img')).toHaveLength(3)
-    expect(screen.getByText('副露（ポン）')).toBeInTheDocument()
+    expect(screen.getByText('ポン')).toBeInTheDocument()
   })
 })

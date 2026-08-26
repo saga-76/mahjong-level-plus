@@ -4,6 +4,8 @@ export type TestQuestion = {
   condition: {
     player: 'dealer' | 'nonDealer'
     winType: 'ron' | 'tsumo'
+    roundWind: 'east' | 'south' | 'west' | 'north'
+    seatWind: 'east' | 'south' | 'west' | 'north'
   }
   choices: readonly string[]
   correctAnswer: string
@@ -38,6 +40,8 @@ const baseTestQuestion: TestQuestion = {
   condition: {
     player: 'nonDealer',
     winType: 'ron',
+    roundWind: 'east',
+    seatWind: 'south',
   },
   choices: ['3,900点', '5,200点', '8,000点'],
   correctAnswer: '8,000点',
@@ -69,6 +73,8 @@ export const testQuestions: readonly TestQuestion[] = [
     condition: {
       player: 'nonDealer',
       winType: 'ron',
+      roundWind: 'south',
+      seatWind: 'west',
     },
     choices: ['3,900点', '5,200点', '7,700点'],
     correctAnswer: '5,200点',

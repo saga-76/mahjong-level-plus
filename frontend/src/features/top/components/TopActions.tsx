@@ -18,7 +18,7 @@ export function TopActions({
     >
       <button
         type="button"
-        className={`${styles.ornateButton} ${styles.primaryButton} min-h-32 w-full cursor-pointer px-8 py-4 text-5xl font-semibold tracking-[0.28em] text-[#f1d49e] sm:min-h-40 sm:text-6xl [@media(max-height:850px)]:min-h-24 [@media(max-height:850px)]:text-4xl`}
+        className={`${styles.ornateButton} ${styles.primaryButton} min-h-20 w-full cursor-pointer px-4 py-3 text-3xl font-semibold tracking-[0.18em] text-[#f1d49e] sm:min-h-32 sm:px-8 sm:py-4 sm:text-5xl sm:tracking-[0.28em] lg:min-h-40 lg:text-6xl [@media(min-width:640px)_and_(max-height:850px)]:min-h-24 [@media(min-width:640px)_and_(max-height:850px)]:text-4xl`}
         onClick={onStart}
       >
         <span className={styles.label}>スタート</span>
@@ -26,7 +26,7 @@ export function TopActions({
 
       <button
         type="button"
-        className={`${styles.ornateButton} ${styles.secondaryButton} min-h-20 w-5/6 cursor-pointer px-6 py-3 text-4xl font-semibold tracking-[0.22em] text-[#063b2b] sm:min-h-24 sm:text-5xl [@media(max-height:850px)]:min-h-16 [@media(max-height:850px)]:text-3xl`}
+        className={`${styles.ornateButton} ${styles.secondaryButton} min-h-14 w-full cursor-pointer px-4 py-2 text-2xl font-semibold tracking-[0.14em] text-[#063b2b] sm:min-h-20 sm:w-5/6 sm:px-6 sm:py-3 sm:text-4xl sm:tracking-[0.22em] lg:min-h-24 lg:text-5xl [@media(min-width:640px)_and_(max-height:850px)]:min-h-16 [@media(min-width:640px)_and_(max-height:850px)]:text-3xl`}
         onClick={onOpenHowTo}
       >
         <span className={`${styles.label} ${styles.secondaryLabel}`}>
@@ -35,7 +35,7 @@ export function TopActions({
       </button>
       <button
         type="button"
-        className={`${styles.ornateButton} ${styles.secondaryButton} min-h-20 w-5/6 cursor-pointer px-6 py-3 text-4xl font-semibold tracking-[0.18em] text-[#063b2b] sm:min-h-24 sm:text-5xl [@media(max-height:850px)]:min-h-16 [@media(max-height:850px)]:text-3xl`}
+        className={`${styles.ornateButton} ${styles.secondaryButton} min-h-14 w-full cursor-pointer px-4 py-2 text-2xl font-semibold tracking-[0.12em] text-[#063b2b] sm:min-h-20 sm:w-5/6 sm:px-6 sm:py-3 sm:text-4xl sm:tracking-[0.18em] lg:min-h-24 lg:text-5xl [@media(min-width:640px)_and_(max-height:850px)]:min-h-16 [@media(min-width:640px)_and_(max-height:850px)]:text-3xl`}
         onClick={onOpenScoreRank}
       >
         <span className={`${styles.label} ${styles.secondaryLabel}`}>
