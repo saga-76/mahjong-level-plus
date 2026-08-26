@@ -38,6 +38,27 @@ describe('App routing', () => {
     expect(screen.getByRole('button', { name: 'スタート' })).toBeInTheDocument()
   })
 
+  it('フッターからプライバシーポリシーページへ移動し、トップ画面へ戻れる', async () => {
+    const { user } = render(
+      <MemoryRouter initialEntries={['/']}>
+        <App />
+      </MemoryRouter>,
+    )
+
+    await user.click(screen.getByRole('link', { name: 'プライバシーポリシー' }))
+
+    expect(
+      screen.getByRole('heading', { name: 'プライバシーポリシー' }),
+    ).toBeInTheDocument()
+    expect(
+      screen.getByRole('heading', { name: '2. 回答データの取り扱い' }),
+    ).toBeInTheDocument()
+
+    await user.click(screen.getByRole('link', { name: 'トップ画面へ戻る' }))
+
+    expect(screen.getByRole('button', { name: 'スタート' })).toBeInTheDocument()
+  })
+
   it('/quizを直接開いて問題画面を表示できる', () => {
     render(
       <MemoryRouter initialEntries={['/quiz']}>
