@@ -5,6 +5,7 @@ import {
   AnswerReviewPageContainer,
   ResultPageContainer,
 } from './features/result'
+import { TermsPage } from './features/terms'
 import { TopPageContainer } from './features/top/containers/TopPageContainer'
 
 function App() {
@@ -41,6 +42,7 @@ function App() {
   return (
     <Routes>
       <Route path="/" element={<TopPageContainer onStart={handleStart} />} />
+      <Route path="/terms" element={<TermsPage />} />
       <Route
         path="/quiz"
         element={
