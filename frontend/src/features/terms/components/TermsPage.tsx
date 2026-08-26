@@ -119,10 +119,6 @@ export function TermsPage() {
                 本規約の解釈には日本法を準拠法とします。本サービスに関して紛争が生じた場合は、運営者の所在地を管轄する裁判所を第一審の専属的合意管轄裁判所とします。
               </p>
             </section>
-
-            <p className="text-right text-sm text-[#d4ae6b]">
-              制定日：2026年8月26日
-            </p>
           </div>
         </article>
       </div>

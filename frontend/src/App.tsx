@@ -1,5 +1,6 @@
 import { useCallback, useState } from 'react'
 import { Navigate, Route, Routes, useNavigate } from 'react-router-dom'
+import { PrivacyPolicyPage } from './features/privacy'
 import { QuizPageContainer, type QuizResult } from './features/quiz'
 import {
   AnswerReviewPageContainer,
@@ -43,6 +44,7 @@ function App() {
     <Routes>
       <Route path="/" element={<TopPageContainer onStart={handleStart} />} />
       <Route path="/terms" element={<TermsPage />} />
+      <Route path="/privacy" element={<PrivacyPolicyPage />} />
       <Route
         path="/quiz"
         element={
