@@ -17,6 +17,27 @@ describe('App routing', () => {
     expect(screen.getByRole('heading', { name: '1 / 10' })).toBeInTheDocument()
   })
 
+  it('フッターから利用規約ページへ移動し、トップ画面へ戻れる', async () => {
+    const { user } = render(
+      <MemoryRouter initialEntries={['/']}>
+        <App />
+      </MemoryRouter>,
+    )
+
+    await user.click(screen.getByRole('link', { name: '利用規約' }))
+
+    expect(
+      screen.getByRole('heading', { name: '利用規約' }),
+    ).toBeInTheDocument()
+    expect(
+      screen.getByRole('heading', { name: '第3条（禁止事項）' }),
+    ).toBeInTheDocument()
+
+    await user.click(screen.getByRole('link', { name: 'トップ画面へ戻る' }))
+
+    expect(screen.getByRole('button', { name: 'スタート' })).toBeInTheDocument()
+  })
+
   it('/quizを直接開いて問題画面を表示できる', () => {
     render(
       <MemoryRouter initialEntries={['/quiz']}>
