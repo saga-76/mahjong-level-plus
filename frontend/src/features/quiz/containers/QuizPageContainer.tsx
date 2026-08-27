@@ -3,7 +3,7 @@ import type { QuizResult } from '../types/score'
 import { QuizPage } from '../components/QuizPage'
 import { questions } from '../data/question'
 import { useQuizProgress } from '../hooks/useQuizProgress'
-import { calculateScore } from '../logic/calculateScore'
+import { createQuizResult } from '../logic/createQuizResult'
 import { selectQuestions } from '../logic/selectQuestions'
 
 type QuizPageContainerProps = {
@@ -26,17 +26,12 @@ export function QuizPageContainer({
     resetQuiz,
   } = useQuizProgress(quizQuestions)
   const result = useMemo<QuizResult>(
-    () => ({
-      ...calculateScore({
+    () =>
+      createQuizResult({
         questions: quizQuestions,
         answers,
         elapsedTimeMs,
       }),
-      totalQuestions: quizQuestions.length,
-      elapsedTimeMs,
-      questions: quizQuestions,
-      answers,
-    }),
     [answers, elapsedTimeMs, quizQuestions],
   )
 
