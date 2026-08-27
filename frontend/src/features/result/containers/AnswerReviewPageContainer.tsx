@@ -1,5 +1,6 @@
 import type { QuizResult } from '../../quiz'
 import { AnswerReviewPage } from '../components/AnswerReviewPage'
+import { createReviewedQuestions } from '../logic/createReviewedQuestions'
 
 type AnswerReviewPageContainerProps = {
   readonly result: QuizResult
@@ -14,19 +15,7 @@ export function AnswerReviewPageContainer({
   onRetry,
   onTop,
 }: AnswerReviewPageContainerProps) {
-  const answerByQuestionId = new Map(
-    result.answers.map((answer) => [answer.questionId, answer]),
-  )
-  const reviewedQuestions = result.questions.map((question) => {
-    const answer = answerByQuestionId.get(question.id)
-    const selectedAnswer = answer?.selectedAnswer ?? null
-
-    return {
-      question,
-      selectedAnswer,
-      isCorrect: selectedAnswer === question.correctAnswer,
-    }
-  })
+  const reviewedQuestions = createReviewedQuestions(result)
 
   return (
     <AnswerReviewPage
