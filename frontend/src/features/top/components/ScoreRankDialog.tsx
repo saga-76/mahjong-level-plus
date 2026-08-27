@@ -45,47 +45,50 @@ export function ScoreRankDialog({ isOpen, onClose }: ScoreRankDialogProps) {
           正解1問につき1,000点、回答時間に応じて最大500点が加算されます。
         </p>
 
-        <ul className="mt-5 space-y-3 sm:hidden">
-          {rankCriteria.map(({ rank, scoreLabel, description }) => (
-            <li
-              key={rank}
-              className="rounded border border-[#c6a160]/50 bg-black/20 p-3"
+        <div className="mt-5 overflow-x-auto sm:mt-6">
+          <div
+            role="table"
+            aria-label="得点とランク基準"
+            className="sm:min-w-[44rem]"
+          >
+            <div
+              role="row"
+              className="hidden grid-cols-[5rem_12rem_minmax(20rem,1fr)] border-b border-[#c6a160] px-3 py-2 text-left text-sm text-[#e8c58d] sm:grid"
             >
-              <div className="flex items-baseline justify-between gap-3">
-                <span className="text-2xl font-semibold text-[#f1d49e]">
-                  {rank}
-                </span>
-                <span className="text-sm text-[#e8c58d]">{scoreLabel}</span>
-              </div>
-              <p className="mt-2 text-sm leading-relaxed text-[#f5e7c8]">
-                {description}
-              </p>
-            </li>
-          ))}
-        </ul>
+              <span role="columnheader">ランク</span>
+              <span role="columnheader">スコア</span>
+              <span role="columnheader">習熟度の目安</span>
+            </div>
 
-        <div className="mt-6 hidden overflow-x-auto sm:block">
-          <table className="table">
-            <thead>
-              <tr className="border-[#c6a160] text-[#e8c58d]">
-                <th>ランク</th>
-                <th>スコア</th>
-                <th>習熟度の目安</th>
-              </tr>
-            </thead>
-
-            <tbody>
+            <ul role="rowgroup" className="space-y-3 sm:space-y-0">
               {rankCriteria.map(({ rank, scoreLabel, description }) => (
-                <tr key={rank} className="border-[#c6a160]/40">
-                  <th className="text-xl text-[#f1d49e]">{rank}</th>
-                  <td className="whitespace-nowrap text-[#f5e7c8]">
+                <li
+                  key={rank}
+                  role="row"
+                  className="grid grid-cols-[auto_1fr] items-baseline gap-x-3 gap-y-2 rounded border border-[#c6a160]/50 bg-black/20 p-3 sm:grid-cols-[5rem_12rem_minmax(20rem,1fr)] sm:gap-0 sm:rounded-none sm:border-x-0 sm:border-t-0 sm:border-b-[#c6a160]/40 sm:bg-transparent"
+                >
+                  <span
+                    role="cell"
+                    className="text-2xl font-semibold text-[#f1d49e] sm:text-xl"
+                  >
+                    {rank}
+                  </span>
+                  <span
+                    role="cell"
+                    className="justify-self-end whitespace-nowrap text-sm text-[#e8c58d] sm:justify-self-start sm:text-base sm:text-[#f5e7c8]"
+                  >
                     {scoreLabel}
-                  </td>
-                  <td className="min-w-80 text-[#f5e7c8]">{description}</td>
-                </tr>
+                  </span>
+                  <span
+                    role="cell"
+                    className="col-span-2 text-sm leading-relaxed text-[#f5e7c8] sm:col-span-1 sm:text-base"
+                  >
+                    {description}
+                  </span>
+                </li>
               ))}
-            </tbody>
-          </table>
+            </ul>
+          </div>
         </div>
 
         <p className="mt-4 text-center text-xs leading-relaxed text-[#d6bb88] sm:text-sm">

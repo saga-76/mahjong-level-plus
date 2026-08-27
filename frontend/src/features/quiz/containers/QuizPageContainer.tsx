@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from 'react'
+import { useEffect, useState } from 'react'
 import type { QuizResult } from '../types/score'
 import { QuizPage } from '../components/QuizPage'
 import { questions } from '../data/question'
@@ -25,21 +25,17 @@ export function QuizPageContainer({
     isCompleted,
     resetQuiz,
   } = useQuizProgress(quizQuestions)
-  const result = useMemo<QuizResult>(
-    () =>
-      createQuizResult({
-        questions: quizQuestions,
-        answers,
-        elapsedTimeMs,
-      }),
-    [answers, elapsedTimeMs, quizQuestions],
-  )
-
   useEffect(() => {
     if (isCompleted) {
-      onComplete(result)
+      onComplete(
+        createQuizResult({
+          questions: quizQuestions,
+          answers,
+          elapsedTimeMs,
+        }),
+      )
     }
-  }, [isCompleted, onComplete, result])
+  }, [answers, elapsedTimeMs, isCompleted, onComplete, quizQuestions])
 
   const handleQuit = () => {
     resetQuiz()
