@@ -1,13 +1,42 @@
-export { questions } from './data/question'
-export { QUESTIONS_PER_PATTERN, selectQuestions } from './logic/selectQuestions'
+export { QUESTION_PATTERN_COUNT, questions } from './data/question'
+export { rankCriteria } from './data/rankCriteria'
+export { QUIZ_QUESTION_COUNT } from './config/quizConfig'
+export { AnswerChoices } from './components/AnswerChoices'
+export { DoraTiles } from './components/DoraTiles'
+export { MahjongTile } from './components/MahjongTile'
+export { WinningHand } from './components/WinningHand'
+export { QuizPageContainer } from './containers/QuizPageContainer'
+export { useQuizProgress } from './hooks/useQuizProgress'
+export {
+  calculateScore,
+  POINTS_PER_CORRECT_ANSWER,
+  TIME_BONUS_MAX_SCORE,
+  TIME_BONUS_REFERENCE_MS,
+} from './logic/calculateScore'
+export { determineRank } from './logic/determineRank'
+export { selectQuestions } from './logic/selectQuestions'
 
 export type {
+  DoraTileCodes,
+  Meld,
+  MeldType,
   PatternAQuestion,
   PatternBQuestion,
   PlayerType,
   Question,
   QuestionCondition,
+  QuestionHand,
   QuestionPattern,
   TileCode,
+  Wind,
   WinType,
+  Yaku,
 } from './types/question'
+
+export type {
+  AnswerRecord,
+  QuizProgressState,
+  QuizStatus,
+} from './types/answer'
+export type { Rank, RankCriterion } from './types/rank'
+export type { QuizResult, ScoreResult } from './types/score'
