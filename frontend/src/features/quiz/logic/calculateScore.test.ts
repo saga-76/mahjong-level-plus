@@ -4,8 +4,10 @@ import type { AnswerRecord } from '../types/answer'
 import { questions } from '../data/question'
 import { calculateScore } from './calculateScore'
 
+const quizQuestions = questions.slice(0, 10)
+
 function createAnswers(correctAnswerCount: number): AnswerRecord[] {
-  return questions.map((question, index) => ({
+  return quizQuestions.map((question, index) => ({
     questionId: question.id,
     selectedAnswer:
       index < correctAnswerCount
@@ -17,7 +19,7 @@ function createAnswers(correctAnswerCount: number): AnswerRecord[] {
 describe('calculateScore', () => {
   it('1問正解につき1,000点を加算して正解数を集計する', () => {
     const result = calculateScore({
-      questions,
+      questions: quizQuestions,
       answers: createAnswers(5),
       elapsedTimeMs: 60_000,
     })
@@ -35,7 +37,7 @@ describe('calculateScore', () => {
     '$correctCount問正解・$elapsedTimeMsミリ秒のタイムボーナスを計算する',
     ({ correctCount, elapsedTimeMs, expectedBonus }) => {
       const result = calculateScore({
-        questions,
+        questions: quizQuestions,
         answers: createAnswers(correctCount),
         elapsedTimeMs,
       })
@@ -46,7 +48,7 @@ describe('calculateScore', () => {
 
   it('正解点とタイムボーナスを合計する', () => {
     const result = calculateScore({
-      questions,
+      questions: quizQuestions,
       answers: createAnswers(10),
       elapsedTimeMs: 60_000,
     })
@@ -61,7 +63,7 @@ describe('calculateScore', () => {
 
   it('回答が速い場合もタイムボーナスを500点までに制限する', () => {
     const result = calculateScore({
-      questions,
+      questions: quizQuestions,
       answers: createAnswers(10),
       elapsedTimeMs: 1,
     })
@@ -72,12 +74,12 @@ describe('calculateScore', () => {
 
   it('正解数が0または回答時間が0の場合はタイムボーナスを0にする', () => {
     const noCorrectAnswers = calculateScore({
-      questions,
+      questions: quizQuestions,
       answers: createAnswers(0),
       elapsedTimeMs: 30_000,
     })
     const zeroElapsedTime = calculateScore({
-      questions,
+      questions: quizQuestions,
       answers: createAnswers(10),
       elapsedTimeMs: 0,
     })
@@ -92,7 +94,7 @@ describe('calculateScore', () => {
     '回答時間が不正な値（%s）の場合はタイムボーナスを0にする',
     (elapsedTimeMs) => {
       const result = calculateScore({
-        questions,
+        questions: quizQuestions,
         answers: createAnswers(10),
         elapsedTimeMs,
       })
@@ -115,7 +117,7 @@ describe('calculateScore', () => {
     ]
 
     const result = calculateScore({
-      questions,
+      questions: quizQuestions,
       answers: duplicateAnswers,
       elapsedTimeMs: 30_000,
     })

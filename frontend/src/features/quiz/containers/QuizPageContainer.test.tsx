@@ -4,7 +4,7 @@ import { render, screen, waitFor, within } from '../../../test/test-utils'
 import { QuizPageContainer } from './QuizPageContainer'
 
 describe('QuizPageContainer', () => {
-  it('やめると回答状況を初期化してonQuitを通知する', async () => {
+  it('中断すると回答状況を初期化してonQuitを通知する', async () => {
     const onQuit = vi.fn()
     const { user } = render(
       <QuizPageContainer onQuit={onQuit} onComplete={vi.fn()} />,
@@ -15,12 +15,19 @@ describe('QuizPageContainer', () => {
 
     await user.click(within(answerChoices).getAllByRole('button')[0])
 
-    expect(screen.getByRole('heading', { name: '2 / 10' })).toBeInTheDocument()
+    expect(
+      screen.getByRole('progressbar', { name: '問題の進捗' }),
+    ).toHaveAttribute('aria-valuenow', '1')
 
-    await user.click(screen.getByRole('button', { name: 'やめる' }))
+    await user.click(screen.getByRole('button', { name: '中断する' }))
 
     expect(onQuit).toHaveBeenCalledOnce()
-    expect(screen.getByRole('heading', { name: '1 / 10' })).toBeInTheDocument()
+    expect(
+      screen.getByRole('heading', { name: '10問出題' }),
+    ).toBeInTheDocument()
+    expect(
+      screen.getByRole('progressbar', { name: '問題の進捗' }),
+    ).toHaveAttribute('aria-valuenow', '0')
   })
 
   it('10問完了時にスコア・正解数・回答時間をonCompleteで通知する', async () => {

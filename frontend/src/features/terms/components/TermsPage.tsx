@@ -1,12 +1,12 @@
 import { Link } from 'react-router-dom'
 
 const sectionClassName = 'space-y-3'
-const headingClassName = 'text-xl font-semibold text-[#f1d49e] sm:text-2xl'
+const headingClassName = 'text-xl font-semibold text-white sm:text-2xl'
 const listClassName = 'list-decimal space-y-2 pl-6'
 
 export function TermsPage() {
   return (
-    <main className="relative min-h-dvh overflow-x-hidden bg-[#031a14] px-3 py-4 text-[#f5e7c8] sm:px-6 sm:py-10">
+    <main className="relative min-h-dvh overflow-x-hidden bg-[#031a14] px-3 py-4 text-white sm:px-6 sm:py-10">
       <div
         aria-hidden="true"
         className="absolute inset-0 bg-[radial-gradient(circle_at_top,rgba(27,75,54,0.75),transparent_60%),linear-gradient(135deg,rgba(198,161,96,0.1),transparent_45%)]"
@@ -15,7 +15,7 @@ export function TermsPage() {
       <div className="relative mx-auto w-full max-w-5xl">
         <div className="mb-3 flex justify-end sm:mb-6">
           <Link
-            className="w-full rounded border border-[#c6a160] bg-[#123727] px-4 py-3 text-center font-semibold text-[#f1d49e] transition hover:bg-[#1b4b36] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#f1d49e] sm:w-auto sm:px-5"
+            className="w-full bg-[#efe4cb] px-6 py-3 text-center text-base font-semibold tracking-[0.2em] text-[#063b2b] transition hover:bg-[#fff3d9] focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white sm:w-auto sm:min-w-40 sm:px-8 sm:text-lg"
             to="/"
           >
             トップ画面へ戻る
@@ -24,13 +24,12 @@ export function TermsPage() {
 
         <article className="rounded-lg border-2 border-[#c6a160] bg-[#082f25]/95 px-4 py-6 shadow-[0_16px_40px_rgba(0,0,0,0.7)] outline outline-1 -outline-offset-3 outline-[#d4ae6b]/40 sm:rounded-xl sm:px-10 sm:py-12">
           <header className="border-b border-[#c6a160]/60 pb-4 text-center sm:pb-6">
-            <p className="text-sm tracking-[0.3em] text-[#d4ae6b]">TERMS</p>
-            <h1 className="mt-2 text-2xl font-semibold tracking-[0.08em] text-[#f1d49e] sm:text-4xl sm:tracking-[0.12em]">
+            <h1 className="text-2xl font-semibold tracking-[0.08em] text-white sm:text-4xl sm:tracking-[0.12em]">
               利用規約
             </h1>
           </header>
 
-          <div className="mt-6 space-y-8 text-sm leading-relaxed sm:mt-8 sm:space-y-10 sm:text-base">
+          <div className="mx-auto mt-6 max-w-3xl space-y-8 text-sm leading-relaxed sm:mt-8 sm:space-y-10 sm:text-base">
             <p>
               この利用規約（以下「本規約」といいます。）は、「麻雀レベル++」（以下「本サービス」といいます。）の利用条件を定めるものです。本サービスを利用する方（以下「利用者」といいます。）は、本規約に同意したうえで本サービスをご利用ください。
             </p>

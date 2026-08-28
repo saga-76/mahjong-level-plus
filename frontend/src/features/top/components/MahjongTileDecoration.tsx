@@ -12,7 +12,7 @@ export function MahjongTileDecoration() {
   return (
     <div
       aria-hidden="true"
-      className="pointer-events-none absolute -right-8 bottom-14 z-10 hidden origin-bottom-right -rotate-10 items-end opacity-75 xl:flex"
+      className="pointer-events-none absolute right-[clamp(6rem,12vw,16rem)] bottom-[clamp(9rem,17vh,15rem)] z-10 hidden origin-bottom-right -rotate-10 items-end opacity-75 xl:flex"
     >
       {tileNames.map((tileName, index) => (
         <div

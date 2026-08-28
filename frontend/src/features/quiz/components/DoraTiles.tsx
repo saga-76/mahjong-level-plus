@@ -4,12 +4,19 @@ import { MahjongTile } from './MahjongTile'
 type DoraTilesProps = {
   readonly tiles: DoraTileCodes
   readonly compact?: boolean
+  readonly size?: 'default' | 'large'
 }
 
-export function DoraTiles({ tiles, compact = false }: DoraTilesProps) {
+export function DoraTiles({
+  tiles,
+  compact = false,
+  size = 'default',
+}: DoraTilesProps) {
   const emptyStateSizeClass = compact
     ? 'w-8 sm:w-10'
-    : 'w-8 sm:w-10 md:w-12 lg:w-14'
+    : size === 'large'
+      ? 'w-10 sm:w-12 md:w-14 lg:w-16 xl:w-[4.5rem] [@media(min-width:640px)_and_(max-height:900px)]:w-12'
+      : 'w-8 sm:w-10 md:w-12 lg:w-14'
 
   return (
     <div
@@ -19,7 +26,7 @@ export function DoraTiles({ tiles, compact = false }: DoraTilesProps) {
     >
       {tiles.length === 0 ? (
         <span
-          className={`flex aspect-[3/4] shrink-0 items-center justify-center text-sm text-[#f5e7c8] ${emptyStateSizeClass}`}
+          className={`flex aspect-[3/4] shrink-0 items-center justify-center text-sm text-white ${emptyStateSizeClass}`}
         >
           なし
         </span>
@@ -28,6 +35,7 @@ export function DoraTiles({ tiles, compact = false }: DoraTilesProps) {
           <MahjongTile
             key={`${tile}-${index}`}
             tile={tile}
+            size={size}
             className={compact ? 'max-w-10' : ''}
           />
         ))

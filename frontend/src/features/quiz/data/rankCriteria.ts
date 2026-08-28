@@ -1,6 +1,7 @@
 import type { RankCriterion } from '../types/rank'
+import { QUIZ_QUESTION_COUNT } from '../config/quizConfig'
 
-export const rankCriteria = [
+const baseRankCriteria = [
   {
     rank: 'G',
     minScore: 0,
@@ -80,3 +81,32 @@ export const rankCriteria = [
     description: '10問全問正解です。点数申告で卓を止める心配はほぼありません。',
   },
 ] as const satisfies readonly RankCriterion[]
+
+const scoreScale = QUIZ_QUESTION_COUNT / 10
+
+function scaleScore(score: number): number {
+  return Math.round(score * scoreScale)
+}
+
+export const rankCriteria: readonly RankCriterion[] = baseRankCriteria.map(
+  (criterion, index) => {
+    const minScore = scaleScore(criterion.minScore)
+    const nextCriterion = baseRankCriteria[index + 1]
+    const maxScore = nextCriterion
+      ? scaleScore(nextCriterion.minScore) - 1
+      : null
+    const isPerfectRank = criterion.rank === 'SSS'
+
+    return {
+      ...criterion,
+      minScore,
+      maxScore,
+      scoreLabel: isPerfectRank
+        ? `${minScore.toLocaleString()}〜（${QUIZ_QUESTION_COUNT}問全問正解）`
+        : `${minScore.toLocaleString()}〜${maxScore!.toLocaleString()}`,
+      description: isPerfectRank
+        ? `${QUIZ_QUESTION_COUNT}問全問正解です。点数申告で卓を止める心配はほぼありません。`
+        : criterion.description,
+    }
+  },
+)

@@ -24,4 +24,30 @@ describe('WinningHand', () => {
     expect(within(meld).getAllByRole('img')).toHaveLength(3)
     expect(screen.getByText('ポン')).toBeInTheDocument()
   })
+
+  it('手牌を種類と数字の順に並べて表示する', () => {
+    render(
+      <WinningHand
+        hand={{
+          concealedTiles: ['1m', '2m', '3m', '2m', '3m', '4m'],
+          winningTile: '5m',
+          melds: [],
+        }}
+      />,
+    )
+
+    const concealedTiles = screen.getByRole('group', { name: '手牌' })
+    const tileLabels = within(concealedTiles)
+      .getAllByRole('img')
+      .map((tile) => tile.getAttribute('alt'))
+
+    expect(tileLabels).toEqual([
+      '1mの麻雀牌',
+      '2mの麻雀牌',
+      '2mの麻雀牌',
+      '3mの麻雀牌',
+      '3mの麻雀牌',
+      '4mの麻雀牌',
+    ])
+  })
 })
