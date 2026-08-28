@@ -18,7 +18,12 @@ describe('AnswerChoices', () => {
     expect(screen.getAllByRole('button')).toHaveLength(3)
 
     for (const choice of ronChoices) {
-      expect(screen.getByRole('button', { name: choice })).toBeInTheDocument()
+      expect(screen.getByRole('button', { name: choice })).toHaveClass(
+        'min-h-28',
+        'sm:min-h-40',
+        'text-2xl',
+        'sm:text-3xl',
+      )
     }
   })
 

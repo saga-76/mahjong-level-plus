@@ -3,10 +3,13 @@ import type {
   PatternBQuestion,
   Question,
 } from '../types/question'
-
-export const QUESTIONS_PER_PATTERN = 5
+import { QUIZ_QUESTION_COUNT } from '../config/quizConfig'
 
 type RandomGenerator = () => number
+type SelectQuestionsOptions = {
+  readonly questionCount?: number
+  readonly random?: RandomGenerator
+}
 
 function shuffle<T>(
   items: readonly T[],
@@ -35,11 +38,33 @@ function validateUniqueQuestionIds(questions: readonly Question[]): void {
   }
 }
 
+function shuffleChoices(question: Question, random: RandomGenerator): Question {
+  return {
+    ...question,
+    choices: shuffle(question.choices, random) as [string, string, string],
+  }
+}
+
 export function selectQuestions(
   questions: readonly Question[],
-  random: RandomGenerator = Math.random,
+  options: SelectQuestionsOptions = {},
 ): Question[] {
+  const { questionCount = QUIZ_QUESTION_COUNT, random = Math.random } = options
+
   validateUniqueQuestionIds(questions)
+
+  if (!Number.isInteger(questionCount) || questionCount <= 0) {
+    throw new Error('出題数は1以上の整数で指定してください。')
+  }
+
+  if (questionCount > questions.length) {
+    throw new Error(
+      `出題数${questionCount}問に対して、問題が${questions.length}問しかありません。`,
+    )
+  }
+
+  const patternAQuestionCount = Math.ceil(questionCount / 2)
+  const patternBQuestionCount = Math.floor(questionCount / 2)
 
   const patternAQuestions = questions.filter(
     (question): question is PatternAQuestion => question.pattern === 'A',
@@ -48,26 +73,28 @@ export function selectQuestions(
     (question): question is PatternBQuestion => question.pattern === 'B',
   )
 
-  if (patternAQuestions.length < QUESTIONS_PER_PATTERN) {
-    throw new Error(`パターンAの問題が${QUESTIONS_PER_PATTERN}問以上必要です。`)
+  if (patternAQuestions.length < patternAQuestionCount) {
+    throw new Error(`パターンAの問題が${patternAQuestionCount}問以上必要です。`)
   }
 
-  if (patternBQuestions.length < QUESTIONS_PER_PATTERN) {
-    throw new Error(`パターンBの問題が${QUESTIONS_PER_PATTERN}問以上必要です。`)
+  if (patternBQuestions.length < patternBQuestionCount) {
+    throw new Error(`パターンBの問題が${patternBQuestionCount}問以上必要です。`)
   }
 
   const selectedPatternAQuestions = shuffle(patternAQuestions, random).slice(
     0,
-    QUESTIONS_PER_PATTERN,
+    patternAQuestionCount,
   )
 
   const selectedPatternBQuestions = shuffle(patternBQuestions, random).slice(
     0,
-    QUESTIONS_PER_PATTERN,
+    patternBQuestionCount,
   )
 
-  return shuffle(
+  const selectedQuestions = shuffle(
     [...selectedPatternAQuestions, ...selectedPatternBQuestions],
     random,
   )
+
+  return selectedQuestions.map((question) => shuffleChoices(question, random))
 }

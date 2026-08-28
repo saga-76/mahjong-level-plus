@@ -3,12 +3,20 @@
 
 html {
   min-height: 100%;
+  color-scheme: dark;
+  background: #031a14;
+  scrollbar-color: #b88d4d #031a14;
+  scrollbar-width: thin;
 }
 
 body {
   min-width: 320px;
   min-height: 100%;
   margin: 0;
+  background: #031a14;
+  color: #f5e7c8;
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
 }
 
 button,
@@ -18,4 +26,24 @@ a {
 
 #root {
   min-height: 100svh;
+}
+
+::selection {
+  background: #d4ae6b;
+  color: #031a14;
+}
+
+*::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+*::-webkit-scrollbar-track {
+  background: #031a14;
+}
+
+*::-webkit-scrollbar-thumb {
+  border: 2px solid #031a14;
+  border-radius: 999px;
+  background: #b88d4d;
 }

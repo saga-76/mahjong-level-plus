@@ -38,13 +38,18 @@ describe('ResultPage', () => {
       />,
     )
 
-    expect(screen.getByRole('heading', { name: '結果' })).toBeInTheDocument()
+    expect(
+      screen.getByRole('heading', { name: 'スコア', level: 1 }),
+    ).toBeInTheDocument()
     expect(screen.getByLabelText('ランク')).toHaveTextContent('S')
     expect(screen.getByLabelText('ランク')).toHaveClass('text-[#d946ef]')
     expect(screen.getByText('Sランクの習熟度説明です。')).toBeInTheDocument()
     expect(screen.getByText('1,500点')).toBeInTheDocument()
     expect(screen.getByText('8 / 10問')).toBeInTheDocument()
     expect(screen.getByText('123秒200')).toBeInTheDocument()
+    for (const button of screen.getAllByRole('button')) {
+      expect(button).not.toHaveClass('border-[#c6a160]')
+    }
 
     await user.click(screen.getByRole('button', { name: '解説を見る' }))
 

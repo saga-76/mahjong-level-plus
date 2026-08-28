@@ -4,11 +4,13 @@ import { act, renderHook } from '../../../test/test-utils'
 import { questions } from '../data/question'
 import { useQuizProgress } from './useQuizProgress'
 
+const quizQuestions = questions.slice(0, 10)
+
 describe('useQuizProgress', () => {
   it('問題開始時に時間計測を開始する', () => {
     const now = () => 1_000
     const { result } = renderHook(() =>
-      useQuizProgress(questions, {
+      useQuizProgress(quizQuestions, {
         now,
       }),
     )
@@ -21,7 +23,7 @@ describe('useQuizProgress', () => {
     let currentTimeMs = 1_000
     const now = () => currentTimeMs
     const { result } = renderHook(() =>
-      useQuizProgress(questions, {
+      useQuizProgress(quizQuestions, {
         now,
       }),
     )
@@ -36,7 +38,7 @@ describe('useQuizProgress', () => {
   })
 
   it('選択した回答を回答履歴へ保存する', () => {
-    const { result } = renderHook(() => useQuizProgress(questions))
+    const { result } = renderHook(() => useQuizProgress(quizQuestions))
     const firstQuestion = questions[0]
 
     act(() => {
@@ -52,7 +54,7 @@ describe('useQuizProgress', () => {
   })
 
   it('回答確定時には正誤判定結果を保存しない', () => {
-    const { result } = renderHook(() => useQuizProgress(questions))
+    const { result } = renderHook(() => useQuizProgress(quizQuestions))
     const firstQuestion = questions[0]
     const incorrectAnswer = firstQuestion.choices.find(
       (choice) => choice !== firstQuestion.correctAnswer,
@@ -70,7 +72,7 @@ describe('useQuizProgress', () => {
   })
 
   it('回答確定後に次の問題へ進む', () => {
-    const { result } = renderHook(() => useQuizProgress(questions))
+    const { result } = renderHook(() => useQuizProgress(quizQuestions))
 
     act(() => {
       result.current.confirmAnswer(questions[0].choices[0])
@@ -81,7 +83,7 @@ describe('useQuizProgress', () => {
   })
 
   it('同じ問題を連続して確定しても1件だけ保存する', () => {
-    const { result } = renderHook(() => useQuizProgress(questions))
+    const { result } = renderHook(() => useQuizProgress(quizQuestions))
     const confirmFirstAnswer = result.current.confirmAnswer
 
     act(() => {
@@ -97,12 +99,12 @@ describe('useQuizProgress', () => {
     let currentTimeMs = 1_000
     const now = () => currentTimeMs
     const { result } = renderHook(() =>
-      useQuizProgress(questions, {
+      useQuizProgress(quizQuestions, {
         now,
       }),
     )
 
-    questions.forEach((question, index) => {
+    quizQuestions.forEach((question, index) => {
       currentTimeMs = 1_100 + index * 100
 
       act(() => {
@@ -129,7 +131,7 @@ describe('useQuizProgress', () => {
     let currentTimeMs = 1_000
     const now = () => currentTimeMs
     const { result } = renderHook(() =>
-      useQuizProgress(questions, {
+      useQuizProgress(quizQuestions, {
         now,
       }),
     )

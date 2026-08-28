@@ -1,5 +1,6 @@
-export { questions } from './data/question'
+export { QUESTION_PATTERN_COUNT, questions } from './data/question'
 export { rankCriteria } from './data/rankCriteria'
+export { QUIZ_QUESTION_COUNT } from './config/quizConfig'
 export { AnswerChoices } from './components/AnswerChoices'
 export { DoraTiles } from './components/DoraTiles'
 export { MahjongTile } from './components/MahjongTile'
@@ -13,7 +14,7 @@ export {
   TIME_BONUS_REFERENCE_MS,
 } from './logic/calculateScore'
 export { determineRank } from './logic/determineRank'
-export { QUESTIONS_PER_PATTERN, selectQuestions } from './logic/selectQuestions'
+export { selectQuestions } from './logic/selectQuestions'
 
 export type {
   DoraTileCodes,

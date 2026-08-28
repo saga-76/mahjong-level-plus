@@ -36,46 +36,52 @@ export function ResultPage({
   onTop,
 }: ResultPageProps) {
   return (
-    <main className="relative flex min-h-dvh items-center justify-center overflow-x-hidden bg-[#031a14] px-3 py-4 text-[#f1d49e] sm:px-6 sm:py-8">
+    <main className="relative flex min-h-dvh items-center justify-center overflow-x-hidden bg-[#031a14] px-3 py-4 text-white sm:px-6 sm:py-8">
       <div
         aria-hidden="true"
         className="absolute inset-0 bg-[radial-gradient(circle_at_top,rgba(27,75,54,0.75),transparent_60%),linear-gradient(135deg,rgba(198,161,96,0.1),transparent_45%)]"
       />
 
-      <section className="relative w-full max-w-4xl rounded-xl border-2 border-[#c6a160] bg-[#082f25]/95 px-4 py-6 text-center shadow-[0_16px_40px_rgba(0,0,0,0.7)] outline outline-1 -outline-offset-3 outline-[#d4ae6b]/40 sm:px-10 sm:py-12">
-        <h1 className="text-3xl font-semibold tracking-[0.15em] sm:text-4xl">
-          結果
+      <section className="relative w-full max-w-4xl rounded-xl bg-[#0d4938] px-4 py-6 text-center shadow-[0_18px_44px_rgba(0,0,0,0.78),inset_0_1px_0_rgba(255,255,255,0.1)] sm:px-8 sm:py-10 lg:px-10 lg:py-12">
+        <h1 className="text-3xl font-semibold tracking-[0.15em] [text-shadow:0_0_18px_rgba(250,204,21,0.45)] sm:text-4xl">
+          スコア
         </h1>
 
-        <div className="mt-6 sm:mt-8">
-          <p className="text-sm tracking-[0.2em] text-[#d4ae6b]">RANK</p>
+        <div className="relative isolate mt-6 sm:mt-8">
+          <div
+            aria-hidden="true"
+            className="absolute left-1/2 top-1/2 -z-10 h-40 w-full max-w-xl -translate-x-1/2 -translate-y-1/2 rounded-full bg-[#f8d88f]/25 blur-3xl"
+          />
+          <p className="text-sm font-semibold tracking-[0.2em] text-white">
+            RANK
+          </p>
           <p
             aria-label="ランク"
             className={`mt-2 text-6xl font-black sm:text-8xl ${rankStyleClasses[rankCriterion.rank]}`}
           >
             {rankCriterion.rank}
           </p>
-          <p className="mx-auto mt-5 max-w-2xl leading-relaxed text-[#f5e7c8] sm:text-lg">
+          <p className="mx-auto mt-5 max-w-2xl leading-relaxed text-white sm:text-lg">
             {rankCriterion.description}
           </p>
         </div>
 
         <div className="mt-7 grid gap-3 sm:mt-10 sm:grid-cols-3 sm:gap-4">
-          <div className="rounded border-2 border-[#c6a160] bg-[#f2e5c8]/95 p-4 shadow-[inset_0_0_18px_rgba(198,161,96,0.22),0_6px_14px_rgba(0,0,0,0.35)] sm:p-5">
-            <p className="text-sm font-semibold text-[#7a571f]">スコア</p>
-            <p className="mt-1 text-2xl font-bold text-[#063b2b] sm:mt-2 sm:text-3xl">
+          <div className="rounded bg-emerald-200/80 p-4 shadow-[inset_0_0_18px_rgba(209,250,229,0.5),0_6px_14px_rgba(0,0,0,0.35)] backdrop-blur-sm sm:p-5">
+            <p className="text-sm font-semibold text-black">スコア</p>
+            <p className="mt-1 text-2xl font-bold text-black sm:mt-2 sm:text-3xl">
               {result.totalScore.toLocaleString()}点
             </p>
           </div>
-          <div className="rounded border-2 border-[#c6a160] bg-[#f2e5c8]/95 p-4 shadow-[inset_0_0_18px_rgba(198,161,96,0.22),0_6px_14px_rgba(0,0,0,0.35)] sm:p-5">
-            <p className="text-sm font-semibold text-[#7a571f]">正解数</p>
-            <p className="mt-1 text-2xl font-bold text-[#063b2b] sm:mt-2 sm:text-3xl">
+          <div className="rounded bg-emerald-200/80 p-4 shadow-[inset_0_0_18px_rgba(209,250,229,0.5),0_6px_14px_rgba(0,0,0,0.35)] backdrop-blur-sm sm:p-5">
+            <p className="text-sm font-semibold text-black">正解数</p>
+            <p className="mt-1 text-2xl font-bold text-black sm:mt-2 sm:text-3xl">
               {result.correctCount} / {result.totalQuestions}問
             </p>
           </div>
-          <div className="rounded border-2 border-[#c6a160] bg-[#f2e5c8]/95 p-4 shadow-[inset_0_0_18px_rgba(198,161,96,0.22),0_6px_14px_rgba(0,0,0,0.35)] sm:p-5">
-            <p className="text-sm font-semibold text-[#7a571f]">回答時間</p>
-            <p className="mt-1 text-2xl font-bold text-[#063b2b] sm:mt-2 sm:text-3xl">
+          <div className="rounded bg-emerald-200/80 p-4 shadow-[inset_0_0_18px_rgba(209,250,229,0.5),0_6px_14px_rgba(0,0,0,0.35)] backdrop-blur-sm sm:p-5">
+            <p className="text-sm font-semibold text-black">回答時間</p>
+            <p className="mt-1 text-2xl font-bold text-black sm:mt-2 sm:text-3xl">
               {formatElapsedTime(result.elapsedTimeMs)}
             </p>
           </div>
@@ -84,21 +90,21 @@ export function ResultPage({
         <div className="mt-6 flex flex-col justify-center gap-3 sm:mt-8 sm:flex-row sm:flex-wrap sm:gap-4">
           <button
             type="button"
-            className="w-full cursor-pointer rounded border-2 border-[#c6a160] bg-[#123727] px-3 py-2 text-sm font-semibold tracking-[0.04em] text-[#f1d49e] transition hover:bg-[#1b4b36] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#f1d49e] sm:w-auto sm:min-w-44 sm:px-4 sm:py-2.5 sm:tracking-[0.08em]"
+            className="w-full cursor-pointer rounded bg-[#f3e8ce] px-3 py-2 text-sm font-semibold tracking-[0.04em] text-[#031a14] transition hover:bg-[#fff5dc] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white sm:w-auto sm:min-w-44 sm:px-4 sm:py-2.5 sm:tracking-[0.08em]"
             onClick={onRetry}
           >
             もう一度挑戦
           </button>
           <button
             type="button"
-            className="w-full cursor-pointer rounded border-2 border-[#c6a160] bg-[#f2e5c8] px-3 py-2 text-sm font-semibold tracking-[0.04em] text-[#063b2b] transition hover:bg-[#f8efd9] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#f1d49e] sm:w-auto sm:min-w-44 sm:px-4 sm:py-2.5 sm:tracking-[0.08em]"
+            className="w-full cursor-pointer rounded bg-[#f3e8ce] px-3 py-2 text-sm font-semibold tracking-[0.04em] text-[#031a14] transition hover:bg-[#fff5dc] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white sm:w-auto sm:min-w-44 sm:px-4 sm:py-2.5 sm:tracking-[0.08em]"
             onClick={onReview}
           >
             解説を見る
           </button>
           <button
             type="button"
-            className="w-full cursor-pointer rounded border-2 border-[#c6a160] bg-transparent px-3 py-2 text-sm font-semibold tracking-[0.04em] text-[#f1d49e] transition hover:bg-[#1b4b36] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#f1d49e] sm:w-auto sm:min-w-44 sm:px-4 sm:py-2.5 sm:tracking-[0.08em]"
+            className="w-full cursor-pointer rounded bg-[#f3e8ce] px-3 py-2 text-sm font-semibold tracking-[0.04em] text-[#031a14] transition hover:bg-[#fff5dc] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white sm:w-auto sm:min-w-44 sm:px-4 sm:py-2.5 sm:tracking-[0.08em]"
             onClick={onTop}
           >
             トップ画面

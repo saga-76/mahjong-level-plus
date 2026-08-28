@@ -1,6 +1,11 @@
 import { describe, expect, it } from 'vitest'
 
-import { questions, selectQuestions, type TileCode } from '..'
+import {
+  QUESTION_PATTERN_COUNT,
+  questions,
+  selectQuestions,
+  type TileCode,
+} from '..'
 
 function normalizeRedFive(tile: TileCode): TileCode {
   return tile.startsWith('0') ? (`5${tile.at(-1)}` as TileCode) : tile
@@ -8,7 +13,8 @@ function normalizeRedFive(tile: TileCode): TileCode {
 
 describe('questions', () => {
   it('問題データを読み込める', () => {
-    expect(questions).toHaveLength(10)
+    expect(QUESTION_PATTERN_COUNT).toBe(30)
+    expect(questions).toHaveLength(30)
   })
 
   it('すべての問題に必須項目が正しく登録されている', () => {
@@ -62,13 +68,21 @@ describe('questions', () => {
     }
   })
 
-  it('パターンA・Bが5問ずつ登録されている', () => {
+  it('同じアガリ形と条件の問題が重複していない', () => {
+    const questionPatterns = questions.map((question) =>
+      JSON.stringify({ hand: question.hand, condition: question.condition }),
+    )
+
+    expect(new Set(questionPatterns).size).toBe(questions.length)
+  })
+
+  it('パターンA・Bが15問ずつ登録されている', () => {
     expect(
       questions.filter((question) => question.pattern === 'A'),
-    ).toHaveLength(5)
+    ).toHaveLength(15)
     expect(
       questions.filter((question) => question.pattern === 'B'),
-    ).toHaveLength(5)
+    ).toHaveLength(15)
   })
 
   it('正解が3つの選択肢に含まれている', () => {
@@ -134,8 +148,8 @@ describe('questions', () => {
   })
 
   it('ドラなしを基本とし、ドラを含む問題も1枚までにする', () => {
-    expect(questions.filter((question) => question.dora === 0)).toHaveLength(8)
-    expect(questions.filter((question) => question.dora === 1)).toHaveLength(2)
+    expect(questions.filter((question) => question.dora === 0)).toHaveLength(24)
+    expect(questions.filter((question) => question.dora === 1)).toHaveLength(6)
     expect(questions.every((question) => question.dora <= 1)).toBe(true)
   })
 
@@ -146,6 +160,18 @@ describe('questions', () => {
       } else {
         expect(question.fu).toBeTypeOf('number')
       }
+    }
+  })
+
+  it('ツモ問題の解説にロン換算の点数とツモ支払いを含めている', () => {
+    const tsumoQuestions = questions.filter(
+      (question) => question.condition.winType === 'tsumo',
+    )
+
+    expect(tsumoQuestions.length).toBeGreaterThan(0)
+    for (const question of tsumoQuestions) {
+      expect(question.explanation).toMatch(/符\d+翻のため、[\d,]+点で/)
+      expect(question.explanation).toMatch(/オール|支払います/)
     }
   })
 
@@ -166,11 +192,17 @@ describe('questions', () => {
     )
   })
 
-  it('本番データから10問を重複なく選出できる', () => {
-    const selectedQuestions = selectQuestions(questions, () => 0.5)
+  it('A・B各15問から5問ずつ抽出し、10問を重複なく選出できる', () => {
+    const selectedQuestions = selectQuestions(questions, { random: () => 0.5 })
     const selectedQuestionIds = selectedQuestions.map((question) => question.id)
 
     expect(selectedQuestions).toHaveLength(10)
     expect(new Set(selectedQuestionIds).size).toBe(10)
+    expect(
+      selectedQuestions.filter((question) => question.pattern === 'A'),
+    ).toHaveLength(5)
+    expect(
+      selectedQuestions.filter((question) => question.pattern === 'B'),
+    ).toHaveLength(5)
   })
 })
