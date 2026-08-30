@@ -18,13 +18,12 @@ describe('QuizPageContainer', () => {
     expect(
       screen.getByRole('progressbar', { name: '問題の進捗' }),
     ).toHaveAttribute('aria-valuenow', '1')
+    expect(screen.getByRole('heading', { name: '2問目' })).toBeInTheDocument()
 
     await user.click(screen.getByRole('button', { name: '中断する' }))
 
     expect(onQuit).toHaveBeenCalledOnce()
-    expect(
-      screen.getByRole('heading', { name: '10問出題' }),
-    ).toBeInTheDocument()
+    expect(screen.getByRole('heading', { name: '1問目' })).toBeInTheDocument()
     expect(
       screen.getByRole('progressbar', { name: '問題の進捗' }),
     ).toHaveAttribute('aria-valuenow', '0')

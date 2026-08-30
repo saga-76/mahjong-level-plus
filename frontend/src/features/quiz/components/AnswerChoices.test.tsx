@@ -16,12 +16,15 @@ describe('AnswerChoices', () => {
     )
 
     expect(screen.getAllByRole('button')).toHaveLength(3)
+    expect(screen.getByRole('group', { name: '点数の選択肢' })).toHaveClass(
+      'grid-cols-[repeat(3,minmax(0,1fr))]',
+    )
 
     for (const choice of ronChoices) {
       expect(screen.getByRole('button', { name: choice })).toHaveClass(
-        'min-h-28',
+        'min-h-14',
         'sm:min-h-40',
-        'text-2xl',
+        'text-[clamp(0.75rem,4vw,1rem)]',
         'sm:text-3xl',
       )
     }
@@ -77,8 +80,41 @@ describe('AnswerChoices', () => {
       />,
     )
 
-    expect(
-      screen.getByRole('button', { name: '2,000点 / 4,000点' }),
-    ).toBeInTheDocument()
+    const choice = screen.getByRole('button', { name: '2,000点 / 4,000点' })
+
+    expect(choice).toBeInTheDocument()
+    expect(choice.querySelectorAll('span > span')).toHaveLength(2)
+    expect(choice.querySelectorAll('span > span')[0]).toHaveTextContent(
+      '2,000点/',
+    )
+    expect(choice.querySelectorAll('span > span')[1]).toHaveTextContent(
+      '4,000点',
+    )
+  })
+
+  it('オールの点数表記を点数とオールのまとまりに分けて表示する', () => {
+    const allChoices = [
+      '700点 オール',
+      '1,000点 オール',
+      '8,000点 オール',
+    ] as const
+
+    render(
+      <AnswerChoices
+        choices={allChoices}
+        selectedAnswer={null}
+        onSelect={vi.fn()}
+      />,
+    )
+
+    const choice = screen.getByRole('button', { name: '8,000点 オール' })
+
+    expect(choice.querySelectorAll('span > span')).toHaveLength(2)
+    expect(choice.querySelectorAll('span > span')[0]).toHaveTextContent(
+      '8,000点',
+    )
+    expect(choice.querySelectorAll('span > span')[1]).toHaveTextContent(
+      'オール',
+    )
   })
 })
