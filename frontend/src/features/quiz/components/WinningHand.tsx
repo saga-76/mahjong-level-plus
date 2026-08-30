@@ -41,9 +41,9 @@ export function WinningHand({
   return (
     <section
       aria-label="アガリ役"
-      className="touch-pan-x overscroll-x-contain overflow-x-auto pb-2"
+      className="min-w-0 overflow-x-hidden pb-1 sm:touch-pan-x sm:overscroll-x-contain sm:overflow-x-auto sm:pb-2"
     >
-      <div className="mx-auto flex w-max min-w-max items-end gap-2 sm:gap-4">
+      <div className="mx-auto flex w-full min-w-0 items-end justify-center gap-1 sm:w-max sm:min-w-max sm:gap-4">
         <div>
           <div
             role="group"
@@ -60,8 +60,10 @@ export function WinningHand({
           </div>
         </div>
 
-        <div>
-          <p className="mb-1 text-xs font-semibold text-white">アガリ牌</p>
+        <div className="relative pt-4 sm:pt-0">
+          <p className="absolute top-0 right-0 whitespace-nowrap text-[10px] font-semibold text-white sm:static sm:mb-1 sm:text-xs">
+            アガリ牌
+          </p>
           <div
             role="group"
             aria-label="アガリ牌"
@@ -76,8 +78,11 @@ export function WinningHand({
         </div>
 
         {hand.melds.map((meld, meldIndex) => (
-          <div key={`${meld.type}-${meldIndex}`}>
-            <p className="mb-1 text-xs font-semibold text-white">
+          <div
+            key={`${meld.type}-${meldIndex}`}
+            className="relative pt-4 sm:pt-0"
+          >
+            <p className="absolute top-0 left-1/2 -translate-x-1/2 whitespace-nowrap text-[10px] font-semibold text-white sm:static sm:mb-1 sm:translate-x-0 sm:text-xs">
               {meldLabels[meld.type]}
             </p>
             <div
@@ -97,9 +102,6 @@ export function WinningHand({
           </div>
         ))}
       </div>
-      <p className="mt-2 text-center text-xs font-medium text-white sm:hidden">
-        牌が見切れる場合は横にスクロールできます
-      </p>
     </section>
   )
 }
