@@ -13,6 +13,9 @@ describe('WinningHand', () => {
 
     expect(screen.queryByText('手牌')).not.toBeInTheDocument()
     expect(within(concealedTiles).getAllByRole('img')).toHaveLength(13)
+    expect(within(concealedTiles).getAllByRole('img')[0]).toHaveClass(
+      'w-[clamp(0.875rem,4.8vw,2rem)]',
+    )
     expect(within(winningTile).getAllByRole('img')).toHaveLength(1)
   })
 
