@@ -16,9 +16,7 @@ describe('QuizPage', () => {
       />,
     )
 
-    expect(
-      screen.getByRole('heading', { name: '10問出題' }),
-    ).toBeInTheDocument()
+    expect(screen.getByRole('heading', { name: '1問目' })).toBeInTheDocument()
     const progressbar = screen.getByRole('progressbar', { name: '問題の進捗' })
 
     expect(progressbar).toHaveAttribute('aria-valuenow', '0')
@@ -64,6 +62,7 @@ describe('QuizPage', () => {
     const progressbar = screen.getByRole('progressbar', { name: '問題の進捗' })
 
     expect(progressbar).toHaveAttribute('aria-valuenow', '1')
+    expect(screen.getByRole('heading', { name: '2問目' })).toBeInTheDocument()
     expect(
       progressbar.querySelectorAll('[data-state="completed"]'),
     ).toHaveLength(1)
