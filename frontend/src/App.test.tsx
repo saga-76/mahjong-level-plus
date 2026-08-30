@@ -14,9 +14,7 @@ describe('App routing', () => {
 
     await user.click(screen.getByRole('button', { name: 'スタート' }))
 
-    expect(
-      screen.getByRole('heading', { name: '10問出題' }),
-    ).toBeInTheDocument()
+    expect(screen.getByRole('heading', { name: '1問目' })).toBeInTheDocument()
   })
 
   it('フッターから利用規約ページへ移動し、トップ画面へ戻れる', async () => {
@@ -68,9 +66,7 @@ describe('App routing', () => {
       </MemoryRouter>,
     )
 
-    expect(
-      screen.getByRole('heading', { name: '10問出題' }),
-    ).toBeInTheDocument()
+    expect(screen.getByRole('heading', { name: '1問目' })).toBeInTheDocument()
   })
 
   it('選択肢から回答すると次の問題へ進む', async () => {
@@ -89,6 +85,7 @@ describe('App routing', () => {
     expect(
       screen.getByRole('progressbar', { name: '問題の進捗' }),
     ).toHaveAttribute('aria-valuenow', '1')
+    expect(screen.getByRole('heading', { name: '2問目' })).toBeInTheDocument()
   })
 
   it('問題画面の中断するボタンから確認なしでトップ画面へ戻る', async () => {
@@ -163,7 +160,7 @@ describe('App routing', () => {
     await user.click(screen.getByRole('button', { name: 'もう一度挑戦' }))
 
     expect(
-      await screen.findByRole('heading', { name: '10問出題' }),
+      await screen.findByRole('heading', { name: '1問目' }),
     ).toBeInTheDocument()
     expect(
       screen.queryByRole('heading', { name: 'スコア', level: 1 }),
@@ -185,9 +182,7 @@ describe('App routing', () => {
 
     await user.click(screen.getByRole('button', { name: 'スタート' }))
 
-    expect(
-      screen.getByRole('heading', { name: '10問出題' }),
-    ).toBeInTheDocument()
+    expect(screen.getByRole('heading', { name: '1問目' })).toBeInTheDocument()
     expect(
       screen.getByRole('progressbar', { name: '問題の進捗' }),
     ).toHaveAttribute('aria-valuenow', '0')

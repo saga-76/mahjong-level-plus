@@ -52,7 +52,7 @@ export function QuizPage({
               </button>
             </div>
             <h1 className="text-3xl font-semibold sm:text-4xl [@media(min-width:640px)_and_(max-height:900px)]:text-2xl">
-              {totalQuestions}問出題
+              {currentQuestionNumber}問目
             </h1>
             <div
               role="progressbar"
