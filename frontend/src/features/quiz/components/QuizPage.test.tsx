@@ -32,7 +32,7 @@ describe('QuizPage', () => {
     expect(screen.getByText('自家')).toBeInTheDocument()
     expect(screen.getByText('南家')).toBeInTheDocument()
     expect(screen.getByText('ロン')).toBeInTheDocument()
-    expect(screen.getByText('リーチ')).toHaveClass('text-lg', 'sm:text-2xl')
+    expect(screen.getByText('リーチ')).toHaveClass('text-base', 'sm:text-2xl')
     expect(screen.getByText('ドラ')).toBeInTheDocument()
     expect(screen.queryByText('家')).not.toBeInTheDocument()
     expect(screen.queryByText('翻数')).not.toBeInTheDocument()
@@ -40,6 +40,12 @@ describe('QuizPage', () => {
     expect(
       within(screen.getByRole('group', { name: 'ドラ牌' })).getAllByRole('img'),
     ).toHaveLength(1)
+    expect(
+      within(screen.getByRole('group', { name: '手牌' })).getAllByRole(
+        'img',
+      )[0],
+    ).toHaveClass('w-[clamp(1rem,5.6vw,2.25rem)]')
+    expect(screen.getByRole('main')).toHaveClass('overflow-x-hidden')
     expect(screen.getAllByRole('button')).toHaveLength(4)
     expect(screen.getByRole('button', { name: '中断する' })).toBeInTheDocument()
   })
