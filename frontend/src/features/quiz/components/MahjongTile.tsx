@@ -8,7 +8,7 @@ type MahjongTileProps = {
 }
 
 const sizeClasses = {
-  default: 'w-8 sm:w-10 md:w-12 lg:w-14',
+  default: 'w-[clamp(0.875rem,4.8vw,2rem)] sm:w-10 md:w-12 lg:w-14',
   large:
     'w-[clamp(1rem,5.6vw,2.25rem)] sm:w-12 md:w-14 lg:w-16 xl:w-[4.5rem] [@media(min-width:640px)_and_(max-height:900px)]:w-12',
 } as const
