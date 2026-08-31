@@ -16,7 +16,7 @@ const reviewedQuestions: ReviewedQuestion[] = questions
   }))
 
 describe('AnswerReviewPage', () => {
-  it('10問分の正誤・回答・役・翻・符・ドラ牌・ドラ枚数・解説を表示する', () => {
+  it('10問分の正誤・回答・ドラを含む役・翻・符・解説を表示する', () => {
     render(
       <AnswerReviewPage
         reviewedQuestions={reviewedQuestions}
@@ -47,14 +47,20 @@ describe('AnswerReviewPage', () => {
     )
     expect(
       within(firstQuestion).getByText(
-        '断么九（タンヤオ）1翻、平和（ピンフ）1翻、一盃口（イーペーコー）1翻、リーチ1翻',
+        '断么九（タンヤオ）1翻、平和（ピンフ）1翻、一盃口（イーペーコー）1翻、リーチ1翻、ドラ1翻',
       ),
     ).toBeInTheDocument()
     expect(within(firstQuestion).getByText('役')).toBeInTheDocument()
     expect(within(firstQuestion).getByLabelText('自家 南家')).toHaveClass(
-      'text-2xl',
-      'sm:text-3xl',
+      'text-xs',
+      'sm:text-base',
     )
+    expect(within(firstQuestion).getByText('ドラ')).toBeInTheDocument()
+    expect(
+      within(
+        within(firstQuestion).getByRole('group', { name: 'ドラ牌' }),
+      ).getAllByRole('img'),
+    ).toHaveLength(1)
     expect(screen.getAllByText(/門前清自摸和（メンゼンツモ）1翻/)).toHaveLength(
       2,
     )
@@ -62,13 +68,10 @@ describe('AnswerReviewPage', () => {
     expect(
       within(firstQuestion).getByText('計算不要（満貫以上）'),
     ).toBeInTheDocument()
+    expect(within(firstQuestion).queryByText('ドラ牌')).not.toBeInTheDocument()
     expect(
-      within(
-        within(firstQuestion).getByRole('group', { name: 'ドラ牌' }),
-      ).getAllByRole('img'),
-    ).toHaveLength(1)
-    expect(within(firstQuestion).getByText('ドラ枚数')).toBeInTheDocument()
-    expect(within(firstQuestion).getByText('1枚')).toBeInTheDocument()
+      within(firstQuestion).queryByText('ドラ枚数'),
+    ).not.toBeInTheDocument()
     expect(
       within(firstQuestion).getByText(questions[0].explanation),
     ).toBeInTheDocument()
@@ -79,11 +82,13 @@ describe('AnswerReviewPage', () => {
       within(secondQuestion).getByLabelText('自家 東家'),
     ).toBeInTheDocument()
     expect(
+      within(secondQuestion).queryByText(/ドラ\d+翻/),
+    ).not.toBeInTheDocument()
+    expect(
       within(
         within(secondQuestion).getByRole('group', { name: 'ドラ牌' }),
       ).getByText('なし'),
     ).toBeInTheDocument()
-    expect(within(secondQuestion).getByText('0枚')).toBeInTheDocument()
 
     expect(
       screen
@@ -91,6 +96,15 @@ describe('AnswerReviewPage', () => {
         .slice(0, 3)
         .map((button) => button.textContent),
     ).toEqual(['もう一度挑戦', '結果に戻る', 'トップ画面'])
+    const header = screen.getByRole('heading', {
+      name: '解説',
+      level: 1,
+    }).parentElement!.parentElement!
+
+    expect(header.children[0]).toHaveClass('order-1', 'sm:order-2')
+    expect(header.children[1]).toContainElement(
+      screen.getByRole('heading', { name: '解説', level: 1 }),
+    )
     for (const button of screen.getAllByRole('button')) {
       expect(button).not.toHaveClass('border-[#c6a160]')
     }

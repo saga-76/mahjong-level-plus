@@ -44,7 +44,7 @@ export function ResultPage({
 
       <section className="relative w-full max-w-4xl rounded-xl bg-[#0d4938] px-4 py-6 text-center shadow-[0_18px_44px_rgba(0,0,0,0.78),inset_0_1px_0_rgba(255,255,255,0.1)] sm:px-8 sm:py-10 lg:px-10 lg:py-12">
         <h1 className="text-3xl font-semibold tracking-[0.15em] [text-shadow:0_0_18px_rgba(250,204,21,0.45)] sm:text-4xl">
-          スコア
+          今回の結果
         </h1>
 
         <div className="relative isolate mt-6 sm:mt-8">
