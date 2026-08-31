@@ -24,12 +24,14 @@ export function AnswerReviewPage({
 
       <div className="relative mx-auto w-full max-w-6xl">
         <header className="flex flex-col items-center gap-4 text-center sm:flex-row sm:justify-between sm:gap-5 sm:text-left">
-          <div>
+          <div className="order-1 w-full sm:order-2 sm:w-auto">
+            <ReviewActions onBack={onBack} onRetry={onRetry} onTop={onTop} />
+          </div>
+          <div className="order-2 sm:order-1">
             <h1 className="text-2xl font-semibold tracking-[0.08em] sm:text-4xl sm:tracking-[0.12em]">
               解説
             </h1>
           </div>
-          <ReviewActions onBack={onBack} onRetry={onRetry} onTop={onTop} />
         </header>
 
         <ol className="mt-6 space-y-5 sm:mt-8 sm:space-y-8">

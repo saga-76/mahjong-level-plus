@@ -117,10 +117,10 @@ describe('App routing', () => {
     }
 
     expect(
-      await screen.findByRole('heading', { name: 'スコア', level: 1 }),
+      await screen.findByRole('heading', { name: '今回の結果', level: 1 }),
     ).toBeInTheDocument()
     expect(screen.getByLabelText('ランク')).toBeInTheDocument()
-    expect(screen.getAllByText('スコア')).toHaveLength(2)
+    expect(screen.getByText('スコア')).toBeInTheDocument()
     expect(screen.getByText('正解数')).toBeInTheDocument()
     expect(screen.getByText('回答時間')).toBeInTheDocument()
 
@@ -134,7 +134,7 @@ describe('App routing', () => {
     await user.click(screen.getAllByRole('button', { name: '結果に戻る' })[0])
 
     expect(
-      await screen.findByRole('heading', { name: 'スコア', level: 1 }),
+      await screen.findByRole('heading', { name: '今回の結果', level: 1 }),
     ).toBeInTheDocument()
   })
 
@@ -154,7 +154,7 @@ describe('App routing', () => {
     }
 
     expect(
-      await screen.findByRole('heading', { name: 'スコア', level: 1 }),
+      await screen.findByRole('heading', { name: '今回の結果', level: 1 }),
     ).toBeInTheDocument()
 
     await user.click(screen.getByRole('button', { name: 'もう一度挑戦' }))
@@ -163,7 +163,7 @@ describe('App routing', () => {
       await screen.findByRole('heading', { name: '1問目' }),
     ).toBeInTheDocument()
     expect(
-      screen.queryByRole('heading', { name: 'スコア', level: 1 }),
+      screen.queryByRole('heading', { name: '今回の結果', level: 1 }),
     ).not.toBeInTheDocument()
 
     await user.click(
@@ -204,7 +204,7 @@ describe('App routing', () => {
     }
 
     expect(
-      await screen.findByRole('heading', { name: 'スコア', level: 1 }),
+      await screen.findByRole('heading', { name: '今回の結果', level: 1 }),
     ).toBeInTheDocument()
 
     await user.click(screen.getByRole('button', { name: 'トップ画面' }))
