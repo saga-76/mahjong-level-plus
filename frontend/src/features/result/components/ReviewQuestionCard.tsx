@@ -19,6 +19,9 @@ export function ReviewQuestionCard({
     north: '北',
   } as const
   const seatWindLabel = `${windLabels[question.condition.seatWind]}家`
+  const yakuLabel = formatYakuLabel(question.yaku)
+  const yakuWithDoraLabel =
+    question.dora > 0 ? `${yakuLabel}、ドラ${question.dora}翻` : yakuLabel
 
   return (
     <article
@@ -62,20 +65,28 @@ export function ReviewQuestionCard({
         </div>
       </div>
 
-      <div className="relative mt-4 rounded border border-[#c6a160]/70 bg-[#031f18]/90 px-3 pt-16 pb-3 shadow-inner shadow-black/25 sm:mt-6 sm:px-5 sm:pt-20 sm:pb-5">
-        <span
-          aria-label={`自家 ${seatWindLabel}`}
-          className="absolute top-3 left-3 rounded bg-[#f3e8ce] px-4 py-2 text-2xl font-black text-[#031a14] shadow-md sm:top-5 sm:left-5 sm:px-5 sm:text-3xl"
-        >
-          {seatWindLabel}
-        </span>
+      <div className="relative mt-4 rounded border border-[#c6a160]/70 bg-[#031f18]/90 px-3 pt-12 pb-3 shadow-inner shadow-black/25 sm:mt-6 sm:px-5 sm:pt-20 sm:pb-5">
+        <div className="absolute top-2 left-2 flex items-center gap-4 sm:top-3 sm:left-3 sm:gap-6">
+          <span
+            aria-label={`自家 ${seatWindLabel}`}
+            className="rounded bg-[#f3e8ce] px-2 py-1 text-xs font-black text-[#031a14] shadow-md sm:px-2.5 sm:py-1 sm:text-base"
+          >
+            {seatWindLabel}
+          </span>
+          <div className="flex items-center gap-1.5 sm:gap-2">
+            <span className="text-xs font-semibold text-white sm:text-base">
+              ドラ
+            </span>
+            <DoraTiles tiles={question.doraTiles} compact />
+          </div>
+        </div>
         <WinningHand hand={question.hand} />
       </div>
 
-      <dl className="mt-4 grid gap-2 sm:mt-6 sm:grid-cols-2 sm:gap-3 lg:grid-cols-4">
-        <div className="rounded border border-[#c6a160]/50 bg-black/20 p-3 sm:col-span-2 sm:p-4 lg:col-span-4">
+      <dl className="mt-4 grid gap-2 sm:mt-6 sm:grid-cols-2 sm:gap-3">
+        <div className="rounded border border-[#c6a160]/50 bg-black/20 p-3 sm:col-span-2 sm:p-4">
           <dt className="text-sm font-medium text-white">役</dt>
-          <dd className="mt-1">{formatYakuLabel(question.yaku)}</dd>
+          <dd className="mt-1">{yakuWithDoraLabel}</dd>
         </div>
         <div className="rounded border border-[#c6a160]/50 bg-black/20 p-3 sm:p-4">
           <dt className="text-sm font-medium text-white">翻</dt>
@@ -86,16 +97,6 @@ export function ReviewQuestionCard({
           <dd className="mt-1">
             {question.fu === null ? '計算不要（満貫以上）' : `${question.fu}符`}
           </dd>
-        </div>
-        <div className="rounded border border-[#c6a160]/50 bg-black/20 p-3 sm:p-4">
-          <dt className="text-sm font-medium text-white">ドラ牌</dt>
-          <dd className="mt-2">
-            <DoraTiles tiles={question.doraTiles} compact />
-          </dd>
-        </div>
-        <div className="rounded border border-[#c6a160]/50 bg-black/20 p-3 sm:p-4">
-          <dt className="text-sm font-medium text-white">ドラ枚数</dt>
-          <dd className="mt-1">{question.dora}枚</dd>
         </div>
       </dl>
 

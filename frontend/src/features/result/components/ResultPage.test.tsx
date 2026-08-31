@@ -24,7 +24,7 @@ const rankCriterion: RankCriterion = {
 }
 
 describe('ResultPage', () => {
-  it('スコア・ランク・習熟度・正解数・回答時間を表示する', async () => {
+  it('今回の結果・スコア・ランク・習熟度・正解数・回答時間を表示する', async () => {
     const onReview = vi.fn()
     const onRetry = vi.fn()
     const onTop = vi.fn()
@@ -39,7 +39,7 @@ describe('ResultPage', () => {
     )
 
     expect(
-      screen.getByRole('heading', { name: 'スコア', level: 1 }),
+      screen.getByRole('heading', { name: '今回の結果', level: 1 }),
     ).toBeInTheDocument()
     expect(screen.getByLabelText('ランク')).toHaveTextContent('S')
     expect(screen.getByLabelText('ランク')).toHaveClass('text-[#d946ef]')
