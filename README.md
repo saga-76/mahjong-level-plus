@@ -201,6 +201,7 @@ docker compose exec frontend npm run build
 - ライセンス：[CC0 1.0（パブリックドメイン）](https://github.com/FluffyStuff/riichi-mahjong-tiles/blob/master/LICENSE.md)
 - 使用バリエーション：Regular
 - リポジトリ内のライセンス表記：`frontend/public/assets/mahjong/LICENSE.md`
+- 外部素材の取得・検証記録：[`THIRD_PARTY_NOTICES.md`](THIRD_PARTY_NOTICES.md)
 
 アプリケーション本体のライセンスは、現時点では明示していません。
 
