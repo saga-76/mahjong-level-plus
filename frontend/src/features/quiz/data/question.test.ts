@@ -62,6 +62,28 @@ describe('questions', () => {
     expect(question?.correctAnswer).toBe('18,000点')
   })
 
+  it('question-029は断么九を含む5翻で8,000点になる', () => {
+    const question = questions.find((q) => q.id === 'question-029')!
+    expect(question.yaku).toContainEqual({ name: '断么九', han: 1 })
+    expect(question.han).toBe(5)
+    expect(question.correctAnswer).toBe('8,000点')
+    expect(question.explanation).toContain('計5翻')
+  })
+
+  it('実際の30問から同じ牌姿を重複して出題しない', () => {
+    for (const random of [() => 0, () => 0.5, () => 0.999]) {
+      const selected = selectQuestions(questions, { random })
+      const keys = selected.map((q) =>
+        JSON.stringify({
+          tiles: [...q.hand.concealedTiles].sort(),
+          winning: q.hand.winningTile,
+          melds: q.hand.melds,
+        }),
+      )
+      expect(new Set(keys).size).toBe(10)
+    }
+  })
+
   it('問題データを読み込める', () => {
     expect(QUESTION_PATTERN_COUNT).toBe(30)
     expect(questions).toHaveLength(30)

@@ -2,6 +2,8 @@ import type {
   PatternAQuestion,
   PatternBQuestion,
   Question,
+  QuestionHand,
+  TileCode,
 } from '../types/question'
 import { QUIZ_QUESTION_COUNT } from '../config/quizConfig'
 
@@ -27,6 +29,35 @@ function shuffle<T>(
   }
 
   return shuffledItems
+}
+
+// Compare shapes independently of conditions, tile order, and red-five bonuses.
+function handKey(hand: QuestionHand): string {
+  const normalize = (tile: TileCode) => tile.replace(/^0/, '5')
+  return JSON.stringify({
+    concealed: hand.concealedTiles.map(normalize).sort(),
+    winning: normalize(hand.winningTile),
+    melds: hand.melds
+      .map((meld) =>
+        JSON.stringify({
+          type: meld.type,
+          tiles: meld.tiles.map(normalize).sort(),
+        }),
+      )
+      .sort(),
+  })
+}
+
+function uniqueHands(
+  questions: readonly Question[],
+  random: RandomGenerator,
+): Map<string, Question> {
+  const byHand = new Map<string, Question>()
+  for (const question of shuffle(questions, random)) {
+    const key = handKey(question.hand)
+    if (!byHand.has(key)) byHand.set(key, question)
+  }
+  return byHand
 }
 
 function validateUniqueQuestionIds(questions: readonly Question[]): void {
@@ -81,15 +112,34 @@ export function selectQuestions(
     throw new Error(`パターンBの問題が${patternBQuestionCount}問以上必要です。`)
   }
 
-  const selectedPatternAQuestions = shuffle(patternAQuestions, random).slice(
-    0,
-    patternAQuestionCount,
-  )
+  const uniqueA = uniqueHands(patternAQuestions, random)
+  const uniqueB = uniqueHands(patternBQuestions, random)
+  // Reserve enough distinct B hands before selecting a hand shared with A.
+  let sharedAllowance = uniqueB.size - patternBQuestionCount
+  const selectedPatternAQuestions: Question[] = []
+  const selectedKeys = new Set<string>()
+  for (const [key, question] of uniqueA) {
+    if (selectedPatternAQuestions.length === patternAQuestionCount) break
+    if (uniqueB.has(key)) {
+      if (sharedAllowance <= 0) continue
+      sharedAllowance -= 1
+    }
+    selectedPatternAQuestions.push(question)
+    selectedKeys.add(key)
+  }
+  const selectedPatternBQuestions = [...uniqueB]
+    .filter(([key]) => !selectedKeys.has(key))
+    .slice(0, patternBQuestionCount)
+    .map(([, question]) => question)
 
-  const selectedPatternBQuestions = shuffle(patternBQuestions, random).slice(
-    0,
-    patternBQuestionCount,
-  )
+  if (
+    selectedPatternAQuestions.length !== patternAQuestionCount ||
+    selectedPatternBQuestions.length !== patternBQuestionCount
+  ) {
+    throw new Error(
+      '指定された出題構成に必要な重複しない牌姿が不足しています。',
+    )
+  }
 
   const selectedQuestions = shuffle(
     [...selectedPatternAQuestions, ...selectedPatternBQuestions],
