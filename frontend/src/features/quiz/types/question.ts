@@ -45,6 +45,7 @@ export type QuestionCondition = {
 export type Yaku = {
   readonly name: string
   readonly han: number
+  readonly yakuman?: boolean
 }
 
 type BaseQuestion = {
