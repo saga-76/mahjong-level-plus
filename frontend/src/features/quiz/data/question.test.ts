@@ -12,6 +12,56 @@ function normalizeRedFive(tile: TileCode): TileCode {
 }
 
 describe('questions', () => {
+  it('中ポン・3暗刻の単騎ロンは三暗刻を含む5翻の満貫になる', () => {
+    const question = questions.find(
+      (question) =>
+        question.hand.winningTile === '5m' &&
+        question.hand.melds.some(
+          (meld) =>
+            meld.type === 'pon' && meld.tiles.every((tile) => tile === '7z'),
+        ),
+    )
+
+    expect(question).toBeDefined()
+    expect(question?.yaku).toContainEqual({ name: '三暗刻', han: 2 })
+    expect(question?.han).toBe(5)
+    expect(question?.correctAnswer).toBe('8,000点')
+    expect(question?.choices).toContain('8,000点')
+  })
+
+  it.each([
+    {
+      id: 'question-002',
+      han: 6,
+      correctAnswer: '18,000点',
+    },
+    {
+      id: 'question-013',
+      han: 7,
+      correctAnswer: '12,000点',
+    },
+  ])(
+    '$idの七対子形は高点法により二盃口で計算する',
+    ({ id, han, correctAnswer }) => {
+      const question = questions.find((question) => question.id === id)
+
+      expect(question?.yaku).toContainEqual({ name: '二盃口', han: 3 })
+      expect(question?.yaku.map((yaku) => yaku.name)).not.toContain('七対子')
+      expect(question?.han).toBe(han)
+      expect(question?.correctAnswer).toBe(correctAnswer)
+    },
+  )
+
+  it('question-012の単騎ロンは三暗刻を含む7翻の跳満になる', () => {
+    const question = questions.find(
+      (question) => question.id === 'question-012',
+    )
+
+    expect(question?.yaku).toContainEqual({ name: '三暗刻', han: 2 })
+    expect(question?.han).toBe(7)
+    expect(question?.correctAnswer).toBe('18,000点')
+  })
+
   it('問題データを読み込める', () => {
     expect(QUESTION_PATTERN_COUNT).toBe(30)
     expect(questions).toHaveLength(30)

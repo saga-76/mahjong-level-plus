@@ -14,6 +14,10 @@ export {
   TIME_BONUS_REFERENCE_MS,
 } from './logic/calculateScore'
 export { determineRank } from './logic/determineRank'
+export {
+  calculateMahjongPoints,
+  formatMahjongPointAnswer,
+} from './logic/calculateMahjongPoints'
 export { selectQuestions } from './logic/selectQuestions'
 
 export type {
@@ -32,6 +36,11 @@ export type {
   WinType,
   Yaku,
 } from './types/question'
+
+export type {
+  MahjongPointCalculationInput,
+  MahjongPointResult,
+} from './logic/calculateMahjongPoints'
 
 export type {
   AnswerRecord,
