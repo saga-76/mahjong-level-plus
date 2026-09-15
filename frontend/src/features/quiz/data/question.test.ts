@@ -12,6 +12,23 @@ function normalizeRedFive(tile: TileCode): TileCode {
 }
 
 describe('questions', () => {
+  it('中ポン・3暗刻の単騎ロンは三暗刻を含む5翻の満貫になる', () => {
+    const question = questions.find(
+      (question) =>
+        question.hand.winningTile === '5m' &&
+        question.hand.melds.some(
+          (meld) =>
+            meld.type === 'pon' && meld.tiles.every((tile) => tile === '7z'),
+        ),
+    )
+
+    expect(question).toBeDefined()
+    expect(question?.yaku).toContainEqual({ name: '三暗刻', han: 2 })
+    expect(question?.han).toBe(5)
+    expect(question?.correctAnswer).toBe('8,000点')
+    expect(question?.choices).toContain('8,000点')
+  })
+
   it('問題データを読み込める', () => {
     expect(QUESTION_PATTERN_COUNT).toBe(30)
     expect(questions).toHaveLength(30)
