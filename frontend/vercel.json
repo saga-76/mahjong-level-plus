@@ -1,15 +1,14 @@
 {
   "redirects": [
     {
+      "source": "/",
+      "destination": "https://mahjong-level-plus.com/",
+      "permanent": true
+    },
+    {
       "source": "/:path*",
       "destination": "https://mahjong-level-plus.com/:path*",
       "permanent": true
-    }
-  ],
-  "rewrites": [
-    {
-      "source": "/(.*)",
-      "destination": "/index.html"
     }
   ]
 }
